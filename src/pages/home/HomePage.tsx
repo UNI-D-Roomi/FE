@@ -3,17 +3,23 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useUserStore } from "@/stores/UserStore";
 
 export interface RoomieResponse {
-  id: number;
+  memberId: number;
+  loginId: string;
+  name: string;
+  points: number;
+  roomImageUrl: string;
+  roomieId: number;
   hungerGage: number;
   lastFeedTime: string;
   isRibbon: boolean;
   beforeWashImageUrl: string;
   washingStartTime: string;
+  roomieTalkMsg: string;
 }
 
 import { Comment } from "@/entities";
@@ -23,12 +29,15 @@ const HomePage = () => {
   const { scene: hungryScene } = useGLTF("./RoomieModel/roomie_hungry.glb");
   const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
 
+  const point = useUserStore((state) => state.point);
+  const setPoint = useUserStore((state) => state.setPoint);
   const hungryGauge = useUserStore((state) => state.gauge);
   const setHungryGauge = useUserStore((state) => state.setGauge);
   const isRibbon = useUserStore((state) => state.isRibbon);
   const setIsRibbon = useUserStore((state) => state.setIsRibbon);
   const setScenes = useUserStore((state) => state.setScenes);
   const renderRoomie = useUserStore((state) => state.renderRoomie);
+  const [roomieTalkMsg, setRoomieTalkMsg] = useState("");
 
   const navigate = useNavigate();
 
@@ -38,12 +47,18 @@ const HomePage = () => {
   }, [hungryScene, roomieScene, ribbonScene, setScenes]);
 
   const dummyData: RoomieResponse = {
-    id: 1,
-    hungerGage: 25,
-    lastFeedTime: "2024-11-02T16:00:00Z",
+    memberId: 1,
+    loginId: "testId123",
+    name: "홍길동",
+    points: 1400,
+    roomImageUrl: "https://roomie.com/room/1",
+    roomieId: 1,
+    hungerGage: 70,
+    lastFeedTime: "string",
     isRibbon: true,
-    beforeWashImageUrl: "example_url",
-    washingStartTime: "2024-11-02T16:37:15.502Z",
+    beforeWashImageUrl: "string",
+    washingStartTime: "2024-11-02T20:22:30.244Z",
+    roomieTalkMsg: "string",
   };
 
   useEffect(() => {
@@ -51,17 +66,21 @@ const HomePage = () => {
       try {
         /*
         const response = await axios.get<RoomieResponse>(
-          `${import.meta.env.VITE_SERVER_URL}/roomie/current`
+          `${import.meta.env.VITE_SERVER_URL}/roomie/home`
         );
 
         if (response.data) {
+          setPoint(response.data.points);
           setHungryGauge(response.data.hungerGage);
           setIsRibbon(response.data.isRibbon);
+          setRoomieTalkMsg(response.data.roomieTalkMsg);
         }
         */
 
+        setPoint(dummyData.points);
         setHungryGauge(dummyData.hungerGage);
         setIsRibbon(dummyData.isRibbon);
+        setRoomieTalkMsg(dummyData.roomieTalkMsg);
       } catch (error) {
         console.error("Failed to fetch Roomie data:", error);
       }

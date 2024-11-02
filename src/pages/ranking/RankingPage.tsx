@@ -19,20 +19,20 @@ const RankingPage = () => {
   useEffect(() => {
     const fetchMyRanking = async () => {
       try {
-        /*
         const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/grade/${memberId}/rank`
+          `${import.meta.env.VITE_SERVER_URL}/grade/self`
         );
 
         // 내 순위와 포인트 설정
         setMyRank(response.data.rank);
         setMyPoints(response.data.points);
-        */
 
+        /*
         const dummyRankData = { rank: 5, points: 500 };
 
         setMyRank(dummyRankData.rank);
         setMyPoints(dummyRankData.points);
+        */
       } catch (error) {
         console.error("순위 정보를 가져오는 데 실패했습니다:", error);
       }
@@ -40,15 +40,14 @@ const RankingPage = () => {
 
     const fetchRankingData = async () => {
       try {
-        /*
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/grade`
         );
 
         // 전체 순위 설정
         setRanking(response.data.ranking);
-        */
 
+        /*
         const dummyRankingData = [
           { name: "사용자 1", points: 1000 },
           { name: "사용자 2", points: 800 },
@@ -57,8 +56,10 @@ const RankingPage = () => {
           { name: "내 이름", points: 500 }, // 내 순위
           { name: "사용자 6", points: 400 },
         ];
+        
 
         setRanking(dummyRankingData);
+        */
       } catch (error) {
         console.error("순위 정보를 가져오는 데 실패했습니다:", error);
       }
