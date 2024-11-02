@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useUserStore } from "@/stores/UserStore";
 
@@ -27,8 +27,15 @@ const HomePage = () => {
   const setHungryGauge = useUserStore((state) => state.setGauge);
   const isRibbon = useUserStore((state) => state.isRibbon);
   const setIsRibbon = useUserStore((state) => state.setIsRibbon);
+  const setScenes = useUserStore((state) => state.setScenes);
+  const renderRoomie = useUserStore((state) => state.renderRoomie);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Set scenes in Zustand store
+    setScenes(hungryScene, roomieScene, ribbonScene);
+  }, [hungryScene, roomieScene, ribbonScene, setScenes]);
 
   const dummyData: RoomieResponse = {
     id: 1,
@@ -74,18 +81,6 @@ const HomePage = () => {
 
   const handleRightClick = () => {
     navigate("/dish", { state: { stage: 0, score: 0, comment: "" } });
-  };
-
-  const renderRoomie = () => {
-    if (hungryGauge <= 30) {
-      return <primitive object={hungryScene} />; // 배고픈 모델 렌더링
-    } else {
-      if (isRibbon) {
-        return <primitive object={ribbonScene} />; // 리본 모델 렌더링
-      } else {
-        return <primitive object={roomieScene} />; // 기본 모델 렌더링
-      }
-    }
   };
 
   return (
