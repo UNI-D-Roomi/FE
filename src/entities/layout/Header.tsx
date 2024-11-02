@@ -12,7 +12,6 @@ export const Header = () => {
 
   return (
     <>
-      <HeaderSpace />
       <HeaderContainer>
         <Logo to="/">
           <svg
@@ -43,20 +42,10 @@ export const Header = () => {
 
 const Container = styled.main`
   position: fixed;
-
   width: 100vw;
-  height: calc(100% - 54px);
+  height: calc(100% - 48px);
   left: 0;
-  top: 54px;
-`;
-
-const HeaderSpace = styled.div`
-  position: fixed;
-  width: 100vw;
-  height: 6px;
-  left: 0;
-  top: 0;
-  background-color: ${colors.blue};
+  top: 48px;
 `;
 
 const HeaderContainer = styled.div`
@@ -66,7 +55,7 @@ const HeaderContainer = styled.div`
   width: 100vw;
   height: 48px;
   left: 0;
-  top: 40px;
+  top: 0px;
   background-color: ${colors.blue};
 `;
 
@@ -75,13 +64,14 @@ const Logo = styled(Link)`
 `;
 
 const PointWrapper = styled.div`
+  margin-top: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
   min-width: 80px;
   padding: 0 16px;
-  height: 48px;
+  height: 42px;
   right: 71px;
   border-top-right-radius: 18px;
   border-top-left-radius: 18px;
@@ -111,6 +101,6 @@ const StyledStorefrontIcon = styled(StorefrontIcon)`
   position: absolute;
   right: 0px;
   bottom: -13px;
-  font-size: 70px;
+  font-size: 64px;
   vertical-align: middle;
 `;

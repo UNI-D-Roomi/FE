@@ -53,14 +53,16 @@ const RankingPage = () => {
       </MyRankContainer>
       <TotalRankContainer>
         <SubTitle>전체 순위</SubTitle>
-        {ranking?.map((item, index) => (
-          <UserRankItem
-            key={index}
-            rank={index + 1}
-            name={item.name}
-            point={item.points}
-          />
-        ))}
+        <ListContainer>
+          {ranking?.map((item, index) => (
+            <UserRankItem
+              key={index}
+              rank={index + 1}
+              name={item.name}
+              point={item.points}
+            />
+          ))}
+        </ListContainer>
       </TotalRankContainer>
     </>
   );
@@ -79,8 +81,16 @@ const TotalRankContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: flex-start;
+  height: calc(100vh - 170px);
+`;
 
-  height: 75%;
+const ListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: calc(100vh - 280px);
+  overflow-y: scroll;
+  width: 100vw;
 `;
