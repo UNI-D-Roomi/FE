@@ -45,15 +45,15 @@ const Container = styled.main`
   position: fixed;
 
   width: 100vw;
-  height: calc(100% - 88px);
+  height: calc(100% - 54px);
   left: 0;
-  top: 88px;
+  top: 54px;
 `;
 
 const HeaderSpace = styled.div`
   position: fixed;
   width: 100vw;
-  height: 40px;
+  height: 6px;
   left: 0;
   top: 0;
   background-color: ${colors.blue};
@@ -90,13 +90,12 @@ const PointWrapper = styled.div`
 
 const Point = styled.span`
   color: ${colors.black};
-  font-family: Pretendard;
   font-size: 18px;
   font-weight: 700;
   line-height: 1;
   text-align: center;
   letter-spacing: -0.02em;
-  padding-top: 3.5px;
+  //padding-top: 3.5px;
   padding-right: 2px;
 `;
 
