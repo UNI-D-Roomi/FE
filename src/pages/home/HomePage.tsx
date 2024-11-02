@@ -25,7 +25,8 @@ const HomePage = () => {
 
   const hungryGauge = useUserStore((state) => state.gauge);
   const setHungryGauge = useUserStore((state) => state.setGauge);
-  const [isRibbon, setIsRibbon] = useState(false);
+  const isRibbon = useUserStore((state) => state.isRibbon);
+  const setIsRibbon = useUserStore((state) => state.setIsRibbon);
 
   const navigate = useNavigate();
 
