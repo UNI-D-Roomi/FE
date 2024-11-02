@@ -75,6 +75,7 @@ const CameraPage = () => {
       <CameraContainer>
         <Camera
           ref={camera}
+          facingMode='environment'
           errorMessages={{
             noCameraAccessible:
               "No camera device accessible. Please connect your camera or try a different browser.",
