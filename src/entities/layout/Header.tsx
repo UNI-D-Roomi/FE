@@ -103,12 +103,13 @@ const Point = styled.span`
   line-height: 1;
   text-align: center;
   letter-spacing: -0.02em;
-  padding-top: 3px;
+  padding-top: 3.5px;
+  padding-right: 2px;
 `;
 
 const StyledMonetizationOnIcon = styled(MonetizationOnIcon)`
   color: ${colors.black};
   font-size: 20px;
-  margin-right: 8px;
+  margin-right: 4px;
   vertical-align: middle;
 `;
