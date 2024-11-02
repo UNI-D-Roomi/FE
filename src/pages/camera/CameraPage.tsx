@@ -19,7 +19,9 @@ const CameraPage = () => {
     width: string;
     height: string;
     takePhoto: () => React.SetStateAction<null>;
+    switchCamera: () => void;
   }>(null);
+
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -50,6 +52,10 @@ const CameraPage = () => {
       });
     }
   }, [image]);
+
+  useEffect(() => {
+    camera.current.switchCamera();
+  }, []);
 
   return (
     <>

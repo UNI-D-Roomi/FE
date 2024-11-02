@@ -23,4 +23,19 @@ declare namespace User {
     setGauge: (gauge: number) => void;
     setIsRibbon: (isRibbon: boolean) => void;
   }
+
+  export interface RoomieResponse {
+    memberId: number;
+    loginId: string;
+    name: string;
+    points: number;
+    roomImageUrl: string;
+    roomieId: number;
+    hungerGage: number;
+    lastFeedTime: string;
+    isRibbon: boolean;
+    beforeWashImageUrl: string;
+    washingStartTime: string;
+    roomieTalkMsg: string;
+  }
 }

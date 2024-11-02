@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { SubTitle } from "@/entities";
 import styled from "@emotion/styled";
 import UserRankItem from "./element/UserRankItem";
-import axios from "axios";
 import { useUserStore } from "@/stores/UserStore";
 import { API } from "@/configs";
 
@@ -20,7 +19,7 @@ const RankingPage = () => {
   useEffect(() => {
     const fetchMyRanking = async () => {
       try {
-        const response = await API.get(`/grade/self`);
+        const response = await API.get(`member/grade/self`);
 
         // 내 순위와 포인트 설정
         setMyRank(response.data.rank);
@@ -29,26 +28,10 @@ const RankingPage = () => {
         console.error("순위 정보를 가져오는 데 실패했습니다:", error);
       }
     };
-
     const fetchRankingData = async () => {
       try {
-        const response = await API.get(`/grade`);
-
-        // 전체 순위 설정
-        setRanking(response.data.ranking);
-
-        /*
-        const dummyRankingData = [
-          { name: "사용자 1", points: 1000 },
-          { name: "사용자 2", points: 800 },
-          { name: "사용자 3", points: 700 },
-          { name: "사용자 4", points: 600 },
-          { name: "내 이름", points: 500 }, // 내 순위
-          { name: "사용자 6", points: 400 },
-        ];
-
-        setRanking(dummyRankingData);
-        */
+        const response = await API.get(`member/grade`);
+        setRanking(response.data);
       } catch (error) {
         console.error("순위 정보를 가져오는 데 실패했습니다:", error);
       }
@@ -98,4 +81,6 @@ const TotalRankContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+
+  height: 75%;
 `;

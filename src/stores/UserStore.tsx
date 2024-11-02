@@ -10,6 +10,7 @@ interface UserStore {
   hungryScene: Object3D | null;
   roomieScene: Object3D | null;
   ribbonScene: Object3D | null;
+  roomieTalkMsg: string;
 
   setPoint: (point: number) => void;
   setGauge: (gauge: number) => void;
@@ -17,6 +18,7 @@ interface UserStore {
   setName: (name: string) => void;
   setScenes: (hungry: Object3D, roomie: Object3D, ribbon: Object3D) => void;
   renderRoomie: () => JSX.Element | null;
+  setRoomieTalkMsg: (content: string) => void;
 }
 
 export const useUserStore = create<UserStore>()(
@@ -28,6 +30,7 @@ export const useUserStore = create<UserStore>()(
     hungryScene: null,
     roomieScene: null,
     ribbonScene: null,
+    roomieTalkMsg: "",
 
     setPoint: (point: number) => {
       set((state) => {
@@ -73,6 +76,12 @@ export const useUserStore = create<UserStore>()(
       } else {
         return null;
       }
+    },
+
+    setRoomieTalkMsg: (content: string) => {
+      set((state) => {
+        state.roomieTalkMsg = content;
+      });
     },
   }))
 );

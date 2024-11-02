@@ -5,6 +5,24 @@ import { useUserStore } from "@/stores/UserStore";
 export const UserService = () => {
   const URL = "/roomie";
   const setIsRibbon = useUserStore((state) => state.setIsRibbon);
+  const setRoomieTalkMsg = useUserStore((state) => state.setRoomieTalkMsg);
+  const setPoint = useUserStore((state) => state.setPoint);
+  const setHungryGauge = useUserStore((state) => state.setPoint);
+
+  const fetchRoomieCurrent = async () => {
+    try {
+      const response = await API.get<User.RoomieResponse>(`/roomie/home`);
+
+      if (response.data) {
+        setPoint(response.data.points);
+        setHungryGauge(response.data.hungerGage);
+        setIsRibbon(response.data.isRibbon);
+        setRoomieTalkMsg(response.data.roomieTalkMsg);
+      }
+    } catch (error) {
+      console.error("Failed to fetch Roomie data:", error);
+    }
+  };
 
   const upload = async (body: FormData) => {
     const { data } = (await FORMAPI.post(
@@ -71,5 +89,13 @@ export const UserService = () => {
     setIsRibbon(true);
   };
 
-  return { upload, startDish, endDish, endRoom, setImg, buyRiboon };
+  return {
+    fetchRoomieCurrent,
+    upload,
+    startDish,
+    endDish,
+    endRoom,
+    setImg,
+    buyRiboon,
+  };
 };
