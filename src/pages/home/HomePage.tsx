@@ -3,14 +3,17 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 const HomePage = () => {
-  const { scene } = useGLTF("./roomie1.glb");
+  const { scene: roomieScene } = useGLTF("./roomie1.glb");
+  const { scene: hungryScene } = useGLTF("./roomie_hungry.glb");
   const navigate = useNavigate();
-  scene.scale.set(0.7, 0.7, 0.7);
+  const hungry = 30; 
 
   // 모델을 중앙으로 이동
-  scene.position.set(0, 0, 0);
+  roomieScene.position.set(0, 0, 0);
+  hungryScene.position.set(0, 0, 0);
 
   const handleLeftClick = () => {
     navigate("/room", { state: { stage: 0, score: 0 } });
@@ -19,6 +22,15 @@ const HomePage = () => {
   const handleRightClick = () => {
     navigate("/dish", { state: { stage: 0, score: 0 } });
   };
+
+  const renderRoomie =()=>{
+    if(hungry <= 30){
+      return <primitive object={hungryScene} />; // 기본 모델 렌더링
+    }
+    else{
+      return <primitive object={roomieScene} />; // 기본 모델 렌더링
+    }
+  }
 
   return (
     <>
@@ -29,28 +41,9 @@ const HomePage = () => {
         <Canvas
           camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
         >
-          <OrbitControls
-          // enablePan={false}
-          // enableZoom={false}
-          // enableRotate={true}
-          // maxPolarAngle={Math.PI / 2 }
-          // minPolarAngle={Math.PI / 2}
-          // maxAzimuthAngle={Math.PI / 4}   // 오른쪽 회전 제한
-          />
-          <ambientLight color={"#FFD700"} intensity={13} />
-          <pointLight
-            color={"#ffffff"}
-            position={[10, 10, 10]}
-            intensity={10}
-          />
-          <spotLight
-            color={"#ffffff"}
-            position={[0, 0, 0]}
-            angle={0.15}
-            penumbra={1}
-            intensity={1}
-          />
-          <primitive object={scene} />
+          <OrbitControls/>
+          <ambientLight color={"#FFD700"} intensity={8} />
+          {renderRoomie()}
         </Canvas>
       </CanvasContainer>
       <ButtonContainer>
