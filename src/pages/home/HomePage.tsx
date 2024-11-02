@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useUserStore } from "@/stores/UserStore";
+import { UserService } from "@/services/UserService";
 
 export interface RoomieResponse {
   memberId: number;
@@ -23,22 +24,22 @@ export interface RoomieResponse {
 }
 
 import { Comment } from "@/entities";
-import { API } from "@/configs";
 
 const HomePage = () => {
   const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
   const { scene: hungryScene } = useGLTF("./RoomieModel/roomie_hungry.glb");
   const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
 
-  const setPoint = useUserStore((state) => state.setPoint);
   const hungryGauge = useUserStore((state) => state.gauge);
   const setHungryGauge = useUserStore((state) => state.setGauge);
-  const setIsRibbon = useUserStore((state) => state.setIsRibbon);
+
   const setScenes = useUserStore((state) => state.setScenes);
   const renderRoomie = useUserStore((state) => state.renderRoomie);
-  const [roomieTalkMsg, setRoomieTalkMsg] = useState("");
+  const roomieTalkMsg = useUserStore((state) => state.roomieTalkMsg);
 
   const navigate = useNavigate();
+
+  const { fetchRoomieCurrent } = UserService();
 
   useEffect(() => {
     // Set scenes in Zustand store
@@ -46,21 +47,6 @@ const HomePage = () => {
   }, [hungryScene, roomieScene, ribbonScene, setScenes]);
 
   useEffect(() => {
-    const fetchRoomieCurrent = async () => {
-      try {
-        const response = await API.get<RoomieResponse>(`/roomie/home`);
-
-        if (response.data) {
-          setPoint(response.data.points);
-          setHungryGauge(response.data.hungerGage);
-          setIsRibbon(response.data.isRibbon);
-          setRoomieTalkMsg(response.data.roomieTalkMsg);
-        }
-      } catch (error) {
-        console.error("Failed to fetch Roomie data:", error);
-      }
-    };
-
     fetchRoomieCurrent();
   }, [setHungryGauge]);
 

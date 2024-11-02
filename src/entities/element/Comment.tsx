@@ -16,6 +16,8 @@ export const Comment = styled.span`
   align-items: center;
   padding: 10px;
 
+  text-align: center;
+
   transform: translate(-50%, -50%);
 
   z-index: 9;
