@@ -10,6 +10,9 @@ export const API = axios.create({
 
 export const FORMAPI = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
 });
 
 const storageAccessKey = "JWT_ACCESS_TOKEN";
@@ -24,7 +27,7 @@ export const setAccess = (token: string) => {
   FORMAPI.defaults.headers["Authorization"] = `Bearer ${token}`;
 };
 
-export const resetAccess = () => {
+/* export const resetAccess = () => {
   delete API.defaults.headers["Authorization"];
   delete FORMAPI.defaults.headers["Authorization"];
   localStorage.removeItem(storageAccessKey);
@@ -33,7 +36,7 @@ export const resetAccess = () => {
 export const getAccess = (): string | null => {
   return localStorage.getItem(storageAccessKey);
 };
-
+ */
 /* API.interceptors.response.use(
   (response) => response,
   async () => {

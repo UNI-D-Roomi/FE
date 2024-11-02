@@ -51,7 +51,7 @@ const Container = styled.main`
   position: fixed;
 
   width: 100vw;
-
+  height: calc(100% - 88px);
   left: 0;
   top: 88px;
 `;
