@@ -19,7 +19,7 @@ interface UserStore {
 
 export const useUserStore = create<UserStore>()(
   immer((set, get) => ({
-    point: 350,
+    point: 0,
     gauge: 0,
     isRibbon: false,
     hungryScene: null,

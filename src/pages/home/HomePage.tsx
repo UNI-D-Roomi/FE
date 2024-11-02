@@ -44,25 +44,9 @@ const HomePage = () => {
     setScenes(hungryScene, roomieScene, ribbonScene);
   }, [hungryScene, roomieScene, ribbonScene, setScenes]);
 
-  const dummyData: RoomieResponse = {
-    memberId: 1,
-    loginId: "testId123",
-    name: "홍길동",
-    points: 1400,
-    roomImageUrl: "https://roomie.com/room/1",
-    roomieId: 1,
-    hungerGage: 70,
-    lastFeedTime: "string",
-    isRibbon: true,
-    beforeWashImageUrl: "string",
-    washingStartTime: "2024-11-02T20:22:30.244Z",
-    roomieTalkMsg: "string",
-  };
-
   useEffect(() => {
     const fetchRoomieCurrent = async () => {
       try {
-        /*
         const response = await axios.get<RoomieResponse>(
           `${import.meta.env.VITE_SERVER_URL}/roomie/home`
         );
@@ -73,12 +57,28 @@ const HomePage = () => {
           setIsRibbon(response.data.isRibbon);
           setRoomieTalkMsg(response.data.roomieTalkMsg);
         }
-        */
+
+        /*
+        const dummyData: RoomieResponse = {
+          memberId: 1,
+          loginId: "testId123",
+          name: "홍길동",
+          points: 1400,
+          roomImageUrl: "https://roomie.com/room/1",
+          roomieId: 1,
+          hungerGage: 70,
+          lastFeedTime: "string",
+          isRibbon: true,
+          beforeWashImageUrl: "string",
+          washingStartTime: "2024-11-02T20:22:30.244Z",
+          roomieTalkMsg: "string",
+        };
 
         setPoint(dummyData.points);
         setHungryGauge(dummyData.hungerGage);
         setIsRibbon(dummyData.isRibbon);
         setRoomieTalkMsg(dummyData.roomieTalkMsg);
+        */
       } catch (error) {
         console.error("Failed to fetch Roomie data:", error);
       }
@@ -102,7 +102,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Comment>"하이요"</Comment>
+      <Comment>"{roomieTalkMsg}"</Comment>
       <TitleContainer>
         <SubTitle>오늘의 루미를 시작해보세요</SubTitle>
       </TitleContainer>
