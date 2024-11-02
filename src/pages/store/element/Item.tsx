@@ -15,7 +15,7 @@ const Item = (item: ItemProps) => {
 
   return (
     <ItemContainer>
-      <Image>{image}</Image>
+      <Image>모델링 - {image}</Image>
       <Price>
         <StyledMonetizationOnIcon />
         <span>{price}</span>
@@ -32,8 +32,8 @@ const ItemContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 140px;
-  width: 140px;
+  height: 160px;
+  width: 160px;
   background-color: ${colors.white};
 `;
 
@@ -44,8 +44,9 @@ const Image = styled.div`
   position: absolute;
   color: ${colors.black};
   top: 0;
-  width: 110px;
-  height: 110px;
+  width: 130px;
+  height: 130px;
+  background-color: #d9d9d9;
 `;
 
 const StyledMonetizationOnIcon = styled(MonetizationOnIcon)`
@@ -59,7 +60,7 @@ const Price = styled.div`
   display: flex;
   color: ${colors.black};
   position: absolute;
-  bottom: 6px;
+  bottom: 0px;
   align-items: center;
   justify-content: center;
 

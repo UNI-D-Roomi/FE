@@ -7,6 +7,8 @@ import { colors } from "@/configs";
 import Item from "./element/Item";
 import { useUserStore } from "@/stores/UserStore";
 import { ItemProps } from "./dto";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const StorePage = () => {
   const [currentStep, setCurrentStep] = useState("default");
@@ -18,11 +20,17 @@ const StorePage = () => {
   const setPoint = useUserStore((state) => state.setPoint);
 
   const items: ItemProps[] = [
-    { name: "리본", image: "리본 사진", price: 100 },
-    { name: "선글라스", image: "선글라스 사진", price: 200 },
+    { name: "리본", image: "리본", price: 100 },
+    { name: "선글라스", image: "선글라스", price: 200 },
   ];
 
   const item = items[currentItemIndex];
+
+  // 아이템 착용 상태를 관리하는 객체
+  const itemWearStates: { [key: string]: string } = {
+    리본: "리본 착용 모델 경로",
+    선글라스: "선글라스 착용 모델 경로",
+  };
 
   // 아이템 전환 함수
   const handleNextItem = () => {
@@ -35,41 +43,30 @@ const StorePage = () => {
     );
   };
 
-  const handleApplyItem = async () => {
-    try {
-      // 서버 요청 : 아이템 착용 상태 이미지 가져오기
-      /*
-      const response = await axios.get("/api/roomie/item", {
-        params: { itemId: item.image }, // 서버가 아이템 ID를 통해 이미지 반환
-      });
-      setRoomie(response.data.image); // 서버에서 받은 이미지를 설정
-      */
-      setRoomie(`${item.name} 착용 상태`);
-      setCurrentStep("itemApplied");
-    } catch (error) {
-      console.error("아이템 착용 오류:", error);
-    }
+  const handleApplyItem = () => {
+    setRoomie(itemWearStates[item.name]);
+    setCurrentStep("itemApplied");
   };
 
   // 아이템 구매하기
   const handlePurchaseItem = async () => {
     try {
-      /*
-      // 서버 요청 예제: 포인트 차감 및 구매 처리
-      const response = await axios.post("/api/points/deduct", {
-        itemId: item.image, // 아이템 ID
-        price: item.price, // 차감할 포인트
-      });
+      if (point >= item.price) {
+        /*
+        const response = await axios.post("/api/points/deduct", {
+          itemId: item.image, // 아이템 ID
+          price: item.price, // 차감할 포인트
+        });
 
-      if (response.data.success) {
-        setPoints(points - item.price); // 포인트 차감
+        if (response.data.success) {
+          setPoint(point - item.price); // 포인트 차감
+          setCurrentStep("itemPurchased");
+        */
+        setPoint(point - item.price); // 포인트 차감
         setCurrentStep("itemPurchased");
       } else {
         alert("포인트가 부족합니다.");
       }
-      */
-      setPoint(point - item.price); // 포인트 차감
-      setCurrentStep("itemPurchased");
     } catch (error) {
       console.error("아이템 구매 오류:", error);
     }
@@ -77,6 +74,7 @@ const StorePage = () => {
 
   const handleBackToDefault = () => {
     setCurrentStep("default");
+    setRoomie("기본");
   };
 
   const handleBackToHome = () => {
@@ -92,11 +90,17 @@ const StorePage = () => {
             <br />
             루미를 꾸밀 아이템을 구매해보세요
           </SubTitle>
-          <RoomieContainer>모델링 - {roomie}</RoomieContainer>
+          <RoomieContainer currentStep={currentStep}>
+            모델링 - {roomie}
+          </RoomieContainer>
           <ItemContainer>
-            <ArrowButton onClick={handlePreviousItem}>◀</ArrowButton>
+            <ArrowButton onClick={handlePreviousItem}>
+              <StyledChevronLeftIcon />
+            </ArrowButton>
             <Item name={item.name} image={item.image} price={item.price} />
-            <ArrowButton onClick={handleNextItem}>▶</ArrowButton>
+            <ArrowButton onClick={handleNextItem}>
+              <StyledChevronRightIcon />
+            </ArrowButton>
           </ItemContainer>
           <ButtonContainer>
             <OrangeButton onClick={handleApplyItem}>
@@ -113,7 +117,9 @@ const StorePage = () => {
             <br />
             루미를 꾸밀 아이템을 구매해보세요
           </SubTitle>
-          <RoomieContainer>모델링 - {roomie}</RoomieContainer>
+          <RoomieContainer currentStep={currentStep}>
+            모델링 - {roomie}
+          </RoomieContainer>
           <ButtonContainer>
             <OrangeButton onClick={handlePurchaseItem}>
               아이템 구매하기
@@ -128,7 +134,9 @@ const StorePage = () => {
       {currentStep === "itemPurchased" && (
         <>
           <SubTitle>아이템을 구매했어요 !</SubTitle>
-          <RoomieContainer>모델링 - {roomie}</RoomieContainer>
+          <RoomieContainer currentStep={currentStep}>
+            모델링 - {roomie}
+          </RoomieContainer>
           <ButtonContainer>
             <RedButton onClick={handleBackToHome}>홈으로 돌아가기</RedButton>
           </ButtonContainer>
@@ -146,14 +154,15 @@ const Layout = styled.main`
   align-items: center;
 `;
 
-const RoomieContainer = styled.div`
+const RoomieContainer = styled.div<{ currentStep: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 280px;
-  width: 100vw;
+  top: ${(props) => (props.currentStep === "default" ? "240px" : "280px")};
+  width: 300px;
   height: 300px;
+  background-color: #d9d9d9;
 `;
 
 const ItemContainer = styled.div`
@@ -161,18 +170,28 @@ const ItemContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 130px;
+  bottom: 120px;
   width: 230px;
   height: 160px;
-  background-color: #d9d9d9;
+  //background-color: #d9d9d9;
   border-radius: 8px;
 `;
 
 const ArrowButton = styled.button`
   background: none;
   border: none;
-  font-size: 20px;
   cursor: pointer;
+  padding-bottom: 26px;
+`;
+
+const StyledChevronLeftIcon = styled(ChevronLeftIcon)`
+  font-size: 36px;
+  color: ${colors.black};
+`;
+
+const StyledChevronRightIcon = styled(ChevronRightIcon)`
+  font-size: 36px;
+  color: ${colors.black};
 `;
 
 const ButtonContainer = styled.div`
