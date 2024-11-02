@@ -1,8 +1,12 @@
 import { AxiosResponse } from "axios";
 import { API, FORMAPI } from "@/configs";
+import { useUserStore } from "@/stores/UserStore";
 
 export const UserService = () => {
   const URL = "/roomie";
+  const setIsRibbon = useUserStore((state) => state.setIsRibbon);
+  const isRibbon = useUserStore((state) => state.isRibbon);
+
   const upload = async (body: FormData) => {
     const { data } = (await FORMAPI.post(
       `/storage`,
@@ -33,10 +37,16 @@ export const UserService = () => {
   };
 
   const setImg = async (url: string) => {
-    await API.post(`${URL}/member/room-image`, {
+    await API.post(`/member/room-image`, {
       imageUrl: url,
     });
   };
 
-  return { upload, startDish, endDish, endRoom, setImg };
+  const buyRiboon = async () => {
+    await API.put(`${URL}/buy-roomie`);
+
+    setIsRibbon(false);
+  };
+
+  return { upload, startDish, endDish, endRoom, setImg, buyRiboon };
 };

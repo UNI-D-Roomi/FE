@@ -11,14 +11,17 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls } from "@react-three/drei";
+import { UserService } from "@/services/UserService";
 
 const StorePage = () => {
   const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
-const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
+  const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
   const [currentStep, setCurrentStep] = useState("default");
   const [roomie, setRoomie] = useState("기본");
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const nav = useNavigate();
+
+  const { buyRiboon } = UserService();
 
   const point = useUserStore((state) => state.point);
   const setPoint = useUserStore((state) => state.setPoint);
@@ -51,10 +54,9 @@ const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
   };
 
   const handleApplyItem = () => {
-    if(item.name == "선글라스"){
+    if (item.name == "선글라스") {
       alert("현재는 선글라스를 착용할 수 없습니다!");
-    }
-    else{
+    } else {
       setRoomie(itemWearStates[item.name]);
       setCurrentStep("itemApplied");
     }
@@ -74,10 +76,12 @@ const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
           setPoint(point - item.price); // 포인트 차감
           setCurrentStep("itemPurchased");
         */
-        setPoint(point - item.price); // 포인트 차감
-        setCurrentStep("itemPurchased");
-      }
-      else {
+
+        buyRiboon().then(() => {
+          setPoint(point - item.price); // 포인트 차감
+          setCurrentStep("itemPurchased");
+        });
+      } else {
         alert("포인트가 부족합니다.");
       }
     } catch (error) {
@@ -94,17 +98,17 @@ const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
     nav("/");
   };
 
-  const renderRommie =()=>{
-    switch(currentStep){
-        case "default" :
-          return <primitive object={roomieScene} />; 
-        case "itemPurchased" : 
-        case "itemApplied":
-          return <primitive object={ribbonScene} />; 
-        default : 
-          return null;
-    };
-  }
+  const renderRommie = () => {
+    switch (currentStep) {
+      case "default":
+        return <primitive object={roomieScene} />;
+      case "itemPurchased":
+      case "itemApplied":
+        return <primitive object={ribbonScene} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <Layout>
@@ -117,9 +121,9 @@ const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
           </SubTitle>
           <RoomieContainer currentStep={currentStep}>
             <Canvas
-            camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
+              camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
             >
-              <OrbitControls/>
+              <OrbitControls />
               <ambientLight color={"#FFD700"} intensity={8} />
               {renderRommie()}
             </Canvas>
@@ -150,9 +154,9 @@ const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
           </SubTitle>
           <RoomieContainer currentStep={currentStep}>
             <Canvas
-            camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
+              camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
             >
-              <OrbitControls/>
+              <OrbitControls />
               <ambientLight color={"#FFD700"} intensity={8} />
               {renderRommie()}
             </Canvas>
@@ -173,9 +177,9 @@ const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
           <SubTitle>아이템을 구매했어요 !</SubTitle>
           <RoomieContainer currentStep={currentStep}>
             <Canvas
-            camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
+              camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
             >
-              <OrbitControls/>
+              <OrbitControls />
               <ambientLight color={"#FFD700"} intensity={8} />
               {renderRommie()}
             </Canvas>
