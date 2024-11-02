@@ -15,7 +15,7 @@ import { PAGE_URL } from "@/configs/path";
 const Home = lazy(() => import("@/pages/home/HomePage"));
 const Room = lazy(() => import("@/pages/room/RoomPage"));
 const Dish = lazy(() => import("@/pages/dish/DishPage"));
-const Camera = lazy(() => import("@/pages/home/camera/CameraPage"));
+const Camera = lazy(() => import("@/pages/camera/CameraPage"));
 const Ranking = lazy(() => import("@/pages/ranking/RankingPage"));
 const Store = lazy(() => import("@/pages/store/StorePage"));
 const SetImg = lazy(() => import("@/pages/auth/signup/SetImgPage"));
