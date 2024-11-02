@@ -11,3 +11,4 @@ export {
 } from "./element/Button";
 
 export { Title, SubTitle } from "./element/Text";
+export { Gauge } from "./element/Gauge";
