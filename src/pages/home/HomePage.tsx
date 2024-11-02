@@ -3,16 +3,69 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useUserStore } from "@/stores/UserStore";
+
+export interface RoomieResponse {
+  id: number;
+  hungerGage: number;
+  lastFeedTime: string;
+  isRibbon: boolean;
+  beforeWashImageUrl: string;
+  washingStartTime: string;
+}
 
 import { Comment } from "@/entities";
 
 const HomePage = () => {
-  const { scene } = useGLTF("./roomie1.glb");
+  const { scene: roomieScene } = useGLTF("./roomie1.glb");
+  const { scene: hungryScene } = useGLTF("./roomie_hungry.glb");
+  //const { scene: ribbonScene } = useGLTF("./roomie_ribbon.glb");
+
+  const hungryGauge = useUserStore((state) => state.gauge);
+  const setHungryGauge = useUserStore((state) => state.setGauge);
+  const [isRibbon, setIsRibbon] = useState(false);
+
   const navigate = useNavigate();
-  scene.scale.set(0.7, 0.7, 0.7);
+
+  const dummyData: RoomieResponse = {
+    id: 1,
+    hungerGage: 50,
+    lastFeedTime: "2024-11-02T16:00:00Z",
+    isRibbon: true,
+    beforeWashImageUrl: "example_url",
+    washingStartTime: "2024-11-02T16:37:15.502Z",
+  };
+
+  useEffect(() => {
+    const fetchRoomieCurrent = async () => {
+      try {
+        /*
+        const response = await axios.get<RoomieResponse>(
+          `${import.meta.env.VITE_SERVER_URL}/roomie/current`
+        );
+
+        if (response.data) {
+          setHungryGauge(response.data.hungerGage);
+          setIsRibbon(response.data.isRibbon);
+        }
+        */
+
+        setHungryGauge(dummyData.hungerGage);
+        setIsRibbon(dummyData.isRibbon);
+      } catch (error) {
+        console.error("Failed to fetch Roomie data:", error);
+      }
+    };
+
+    fetchRoomieCurrent();
+  }, [setHungryGauge]);
 
   // 모델을 중앙으로 이동
-  scene.position.set(0, 0, 0);
+  roomieScene.position.set(0, 0, 0);
+  hungryScene.position.set(0, 0, 0);
+  //ribbonScene.position.set(0, 0, 0);
 
   const handleLeftClick = () => {
     navigate("/room", { state: { stage: 0, score: 0 } });
@@ -20,6 +73,22 @@ const HomePage = () => {
 
   const handleRightClick = () => {
     navigate("/dish", { state: { stage: 0, score: 0 } });
+  };
+
+  const renderRoomie = () => {
+    if (hungryGauge <= 30) {
+      if (isRibbon) {
+        return <primitive object={hungryScene} />; // 추후 수정 !!! 배고픈&리본 모델 렌더링
+      } else {
+        return <primitive object={hungryScene} />; // 배고픈 모델 렌더링
+      }
+    } else {
+      if (isRibbon) {
+        return <primitive object={roomieScene} />; // 추후 수정 !!! 기본&리본 모델 렌더링
+      } else {
+        return <primitive object={roomieScene} />; // 기본 모델 렌더링
+      }
+    }
   };
 
   return (
@@ -32,32 +101,13 @@ const HomePage = () => {
         <Canvas
           camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
         >
-          <OrbitControls
-          // enablePan={false}
-          // enableZoom={false}
-          // enableRotate={true}
-          // maxPolarAngle={Math.PI / 2 }
-          // minPolarAngle={Math.PI / 2}
-          // maxAzimuthAngle={Math.PI / 4}   // 오른쪽 회전 제한
-          />
-          <ambientLight color={"#FFD700"} intensity={13} />
-          <pointLight
-            color={"#ffffff"}
-            position={[10, 10, 10]}
-            intensity={10}
-          />
-          <spotLight
-            color={"#ffffff"}
-            position={[0, 0, 0]}
-            angle={0.15}
-            penumbra={1}
-            intensity={1}
-          />
-          <primitive object={scene} />
+          <OrbitControls />
+          <ambientLight color={"#FFD700"} intensity={8} />
+          {renderRoomie()}
         </Canvas>
       </CanvasContainer>
       <ButtonContainer>
-        <Gauge percent={70} />
+        <Gauge percent={hungryGauge} />
         <OrangeTwoButton
           leftText="방 청소하기"
           rightText="설거지하기"
@@ -74,7 +124,6 @@ export default HomePage;
 const TitleContainer = styled.div`
   margin-top: 30px;
   margin-left: 3px;
-  font-weight: bold;
 `;
 const CanvasContainer = styled.div`
   justify-content: center;
@@ -83,9 +132,11 @@ const CanvasContainer = styled.div`
   height: 60vh;
 `;
 const ButtonContainer = styled.div`
-  display: flex; // 추가: Flexbox 활성화
+  display: flex;
   flex-direction: column;
-  justify-content: center; // 추가: 수평 중앙 정렬
-  align-items: center; // 추가: 수직 중앙 정렬
-  margin-top: 20px; // 버튼과 다른 요소 사이의 간격을 추가
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 60px;
+  width: 100vw;
 `;

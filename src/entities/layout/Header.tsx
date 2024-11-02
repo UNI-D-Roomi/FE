@@ -1,13 +1,16 @@
 import { colors } from "@/configs";
 import styled from "@emotion/styled";
-import { useState, useEffect } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import StorefrontIcon from "@mui/icons-material/Storefront";
 import { useUserStore } from "@/stores/UserStore";
 
 export const Header = () => {
   const point = useUserStore((state) => state.point);
   const setPoint = useUserStore((state) => state.setPoint);
+
+  const nav = useNavigate();
 
   // 임시
   useEffect(() => {
@@ -41,6 +44,7 @@ export const Header = () => {
           <StyledMonetizationOnIcon />
           <Point>{point}</Point>
         </PointWrapper>
+        <StyledStorefrontIcon onClick={() => nav("/store")} />
       </HeaderContainer>
       <Container>
         <Outlet />
@@ -86,12 +90,11 @@ const PointWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  position: absolute;
   min-width: 80px;
   padding: 0 16px;
-  height: 49px;
-  right: 0;
-  margin: 0 20px;
+  height: 48px;
+  right: 71px;
   border-top-right-radius: 18px;
   border-top-left-radius: 18px;
   background-color: ${colors.white};
@@ -113,5 +116,14 @@ const StyledMonetizationOnIcon = styled(MonetizationOnIcon)`
   color: ${colors.black};
   font-size: 20px;
   margin-right: 4px;
+  vertical-align: middle;
+`;
+
+const StyledStorefrontIcon = styled(StorefrontIcon)`
+  color: ${colors.white};
+  position: absolute;
+  right: 0px;
+  bottom: -13px;
+  font-size: 70px;
   vertical-align: middle;
 `;
