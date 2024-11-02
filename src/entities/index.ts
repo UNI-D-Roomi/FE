@@ -10,4 +10,4 @@ export {
   RedButton,
 } from "./element/Button";
 
-export { Title, Content } from "./element/Text";
+export { Title, SubTitle } from "./element/Text";

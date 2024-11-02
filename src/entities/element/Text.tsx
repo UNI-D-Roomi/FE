@@ -4,6 +4,6 @@ export const Title = styled.span`
   font-size: 25px;
 `;
 
-export const Content = styled.span`
+export const SubTitle = styled.span`
   font-size: 20px;
 `;
