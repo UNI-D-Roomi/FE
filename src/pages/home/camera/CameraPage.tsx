@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { Camera } from "react-camera-pro";
 import { useState, useRef, useEffect } from "react";
+import CameraIcon from "@mui/icons-material/Camera";
 
+import { RedButton } from "@/entities";
 import { dataURLtoFile } from "@/configs";
 
 const CameraPage = () => {
@@ -47,28 +49,25 @@ const CameraPage = () => {
             canvas: "Canvas is not supported.",
           }}
         />
-        <ScanSubmitButton
+        <SubmitButton
           onClick={() => {
             setImage(camera.current!.takePhoto());
           }}
         >
-          전송하기
-        </ScanSubmitButton>
+          <CameraIcon fontSize="large" />
+        </SubmitButton>
       </CameraContainer>
     </>
   );
 };
 
 const CameraContainer = styled.div`
-  background-color: red;
-  height: 800px;
+  height: 100%;
   div {
     position: absolute;
-
-    top: 42px;
-
+    top: 0px;
     width: 100%;
-    height: 617px;
+    height: 100%;
 
     z-index: -1;
   }
@@ -76,61 +75,33 @@ const CameraContainer = styled.div`
 
 const Target1 = styled.div`
   position: absolute;
-  top: 120px;
+  top: 50px;
   left: 37px;
 `;
 
 const Target2 = styled.div`
   position: absolute;
-  top: 120px;
+  top: 50px;
   right: 37px;
 `;
 
 const Target3 = styled.div`
   position: absolute;
-  top: 620px;
+  bottom: 120px;
   right: 37px;
 `;
 
 const Target4 = styled.div`
   position: absolute;
-  top: 620px;
+  bottom: 120px;
   left: 37px;
 `;
 
-const SubmitButton = styled.button`
-  display: flex;
-  width: 300px;
-  height: 50px;
-
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-
-  font-size: 16px;
-  font-weight: bold;
-
-  text-align: center;
-
-  border: 0px;
-  border-radius: 12px;
-  background: #98fb98;
-
-  margin-top: 15px;
-  margin-bottom: 25px;
-`;
-
-const ScanSubmitButton = styled(SubmitButton)`
+const SubmitButton = styled(RedButton)`
   position: absolute;
-
-  width: 205px;
-  height: 35px;
-  border-radius: 12px;
-
-  bottom: 10%;
+  transform: translate(-50%, 0%);
   left: 50%;
-  transform: translate(-50%);
+  bottom: 30px;
 `;
 
 export default CameraPage;
