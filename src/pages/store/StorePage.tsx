@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { OrangeButton, RedButton, SubTitle } from "@/entities";
 import styled from "@emotion/styled";
-import { colors } from "@/configs";
+import { colors, PAGE_URL } from "@/configs";
 import Item from "./element/Item";
 import { useUserStore } from "@/stores/UserStore";
 import { ItemProps } from "./dto";
@@ -94,7 +94,7 @@ const StorePage = () => {
   };
 
   const handleBackToHome = () => {
-    nav("/");
+    nav(PAGE_URL.Home);
   };
 
   const renderRommie = () => {

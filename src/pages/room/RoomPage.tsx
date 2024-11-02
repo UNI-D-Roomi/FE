@@ -46,7 +46,7 @@ const RoomPage = () => {
         return (
           <>
             <SubTitle>
-              청소를 아주 잘하셨네요!
+              청소하느라 고생하셨어요!!
               <br />
             </SubTitle>
             <SubTitle>

@@ -80,7 +80,7 @@ const DishPage = () => {
         return (
           <>
             <SubTitle>
-              설거지를 아주 잘하셨네요!
+              설거지하느라 고생많았어요!!
               <br />
             </SubTitle>
             <SubTitle>

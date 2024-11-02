@@ -32,11 +32,12 @@ export const setAccess = (token: string) => {
   delete FORMAPI.defaults.headers["Authorization"];
   localStorage.removeItem(storageAccessKey);
 };
+ */
 
 export const getAccess = (): string | null => {
   return localStorage.getItem(storageAccessKey);
 };
- */
+
 /* API.interceptors.response.use(
   (response) => response,
   async () => {
