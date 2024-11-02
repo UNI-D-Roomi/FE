@@ -13,8 +13,8 @@ const RoomPage = () => {
   const [stage, setStage] = useState(location.state.stage); // 상태를 관리하는 변수 (0: 사진 업로드 전, 1: 설거지 시작, 2: 설거지 끝내기)
   const score = useRef(location.state.score);
 
-  const { scene: roomieScene } = useGLTF("./roomie1.glb");
-  const { scene: dustScene } = useGLTF("./Roomie_dust.glb");
+  const { scene: roomieScene } = useGLTF("./RommieModel/roomie1.glb");
+  const { scene: dustScene } = useGLTF("./RommieModel/Roomie_dust.glb");
 
   // 모델을 중앙으로 이동
   roomieScene.position.set(0, 0, 0);
