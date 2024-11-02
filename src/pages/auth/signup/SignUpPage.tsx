@@ -49,6 +49,7 @@ const SignUpPage = () => {
 };
 
 const WidTitle = styled(Title)`
+  margin-top: 5px;
   width: 332px;
   font-weight: bold;
 `;
@@ -63,7 +64,7 @@ const InputTitle = styled.span`
 `;
 
 const Container = styled.form`
-  margin-top: 60px;
+  margin-top: 180px;
 
   width: 100%;
 

@@ -18,12 +18,13 @@ const SetImgPage = () => {
 };
 
 const WidTitle = styled(Title)`
+  margin-top: 5px;
   width: 332px;
   font-weight: bold;
 `;
 
 const Container = styled.div`
-  margin-top: 60px;
+  margin-top: 180px;
 
   width: 100%;
 
@@ -31,7 +32,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  gap: 7px;
+  gap: 5px;
 
   > button {
     margin-top: 6px;

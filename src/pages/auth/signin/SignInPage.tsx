@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router";
-
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 import { AuthService } from "@/services/AuthService";
 import { PAGE_URL } from "@/configs";
-import { BlueButton, OrangeButton, Title } from "@/entities";
+import { BlueButton, OrangeButton, Title, Loading } from "@/entities";
 
 interface IFormInput {
   loginId: string;
@@ -15,6 +17,8 @@ const SignInPage = () => {
   const { signin } = AuthService();
   const navigate = useNavigate();
 
+  const [load, setLoad] = useState(true);
+
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     signin({
@@ -23,30 +27,45 @@ const SignInPage = () => {
     }).then(() => navigate(PAGE_URL.Home));
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoad(false);
+    }, 2000);
+
+    // Clean up the timer when the component unmounts
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <Container onSubmit={handleSubmit(onSubmit)}>
-      <WidTitle>아이디와 비밀번호로</WidTitle>
-      <WidTitle>로그인해주세요.</WidTitle>
-      <div style={{ height: "50px" }}></div>
-      <InputTitle>아이디</InputTitle>
-      <Input
-        placeholder="ID"
-        {...register("loginId", { required: true, maxLength: 30 })}
-      />
-      <InputTitle>비밀번호</InputTitle>
-      <Input
-        placeholder="Password"
-        type="password"
-        {...register("password", { required: true, maxLength: 30 })}
-      />
-      <div style={{ height: "20px" }}></div>
-      <BlueButton type="submit">로그인</BlueButton>
-      <OrangeButton>회원가입</OrangeButton>
-    </Container>
+    <>
+      {load ? <Loading /> : null}
+      <Container onSubmit={handleSubmit(onSubmit)}>
+        <WidTitle>아이디와 비밀번호로</WidTitle>
+        <WidTitle>로그인해주세요.</WidTitle>
+        <div style={{ height: "50px" }}></div>
+        <InputTitle>아이디</InputTitle>
+        <Input
+          placeholder="ID"
+          {...register("loginId", { required: true, maxLength: 30 })}
+        />
+        <InputTitle>비밀번호</InputTitle>
+        <Input
+          placeholder="Password"
+          type="password"
+          {...register("password", { required: true, maxLength: 30 })}
+        />
+        <div style={{ height: "20px" }}></div>
+        <BlueButton type="submit">로그인</BlueButton>
+        <Link to={PAGE_URL.SignUp}>
+          <OrangeButton>회원가입</OrangeButton>
+        </Link>
+      </Container>
+    </>
   );
 };
 
 const WidTitle = styled(Title)`
+  margin-top: 5px;
   width: 332px;
   font-weight: bold;
 `;
@@ -61,7 +80,7 @@ const InputTitle = styled.span`
 `;
 
 const Container = styled.form`
-  margin-top: 60px;
+  margin-top: 180px;
 
   width: 100%;
 
