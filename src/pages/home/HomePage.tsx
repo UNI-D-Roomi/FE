@@ -4,19 +4,66 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { useUserStore } from "@/stores/UserStore";
+
+export interface RoomieResponse {
+  id: number;
+  hungerGage: number;
+  lastFeedTime: string;
+  isRibbon: boolean;
+  beforeWashImageUrl: string;
+  washingStartTime: string;
+}
 
 const HomePage = () => {
   const { scene: roomieScene } = useGLTF("./roomie1.glb");
   const { scene: hungryScene } = useGLTF("./roomie_hungry.glb");
+  //const { scene: ribbonScene } = useGLTF("./roomie_ribbon.glb");
+
+  const hungryGauge = useUserStore((state) => state.gauge);
+  const setHungryGauge = useUserStore((state) => state.setGauge);
+  const [isRibbon, setIsRibbon] = useState(false);
+
   const navigate = useNavigate();
 
-  const gauge = useUserStore((state) => state.gauge);
-  const setGauge = useUserStore((state) => state.setGauge);
+  const dummyData: RoomieResponse = {
+    id: 1,
+    hungerGage: 50,
+    lastFeedTime: "2024-11-02T16:00:00Z",
+    isRibbon: true,
+    beforeWashImageUrl: "example_url",
+    washingStartTime: "2024-11-02T16:37:15.502Z",
+  };
+
+  useEffect(() => {
+    const fetchRoomieCurrent = async () => {
+      try {
+        /*
+        const response = await axios.get<RoomieResponse>(
+          `${import.meta.env.VITE_SERVER_URL}/roomie/current`
+        );
+
+        if (response.data) {
+          setHungryGauge(response.data.hungerGage);
+          setIsRibbon(response.data.isRibbon);
+        }
+        */
+
+        setHungryGauge(dummyData.hungerGage);
+        setIsRibbon(dummyData.isRibbon);
+      } catch (error) {
+        console.error("Failed to fetch Roomie data:", error);
+      }
+    };
+
+    fetchRoomieCurrent();
+  }, [setHungryGauge]);
 
   // 모델을 중앙으로 이동
   roomieScene.position.set(0, 0, 0);
   hungryScene.position.set(0, 0, 0);
+  //ribbonScene.position.set(0, 0, 0);
 
   const handleLeftClick = () => {
     navigate("/room", { state: { stage: 0, score: 0 } });
@@ -27,10 +74,18 @@ const HomePage = () => {
   };
 
   const renderRoomie = () => {
-    if (gauge <= 30) {
-      return <primitive object={hungryScene} />; // 기본 모델 렌더링
+    if (hungryGauge <= 30) {
+      if (isRibbon) {
+        return <primitive object={hungryScene} />; // 추후 수정 !!! 배고픈&리본 모델 렌더링
+      } else {
+        return <primitive object={hungryScene} />; // 배고픈 모델 렌더링
+      }
     } else {
-      return <primitive object={roomieScene} />; // 기본 모델 렌더링
+      if (isRibbon) {
+        return <primitive object={roomieScene} />; // 추후 수정 !!! 기본&리본 모델 렌더링
+      } else {
+        return <primitive object={roomieScene} />; // 기본 모델 렌더링
+      }
     }
   };
 
@@ -49,7 +104,7 @@ const HomePage = () => {
         </Canvas>
       </CanvasContainer>
       <ButtonContainer>
-        <Gauge percent={gauge} />
+        <Gauge percent={hungryGauge} />
         <OrangeTwoButton
           leftText="방 청소하기"
           rightText="설거지하기"
