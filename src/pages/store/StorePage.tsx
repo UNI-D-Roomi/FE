@@ -213,9 +213,6 @@ const ItemContainer = styled.div`
   justify-content: center;
   position: fixed;
   bottom: 120px;
-  // width: 230px;
-  // height: 160px;
-  //background-color: #d9d9d9;
   border-radius: 8px;
 `;
 

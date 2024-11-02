@@ -36,7 +36,7 @@ const ItemContainer = styled.div`
   width: 160px;
   background-color: ${colors.white};
   img {
-    width: 100px; // 이미지 크기 조절
+    width: 130px; // 이미지 크기 조절
     height: auto;
   }
 `;
