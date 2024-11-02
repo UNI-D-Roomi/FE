@@ -34,7 +34,7 @@ export const getAccess = (): string | null => {
   return localStorage.getItem(storageAccessKey);
 };
 
-API.interceptors.response.use(
+/* API.interceptors.response.use(
   (response) => response,
   async () => {
     resetAccess();
@@ -48,4 +48,4 @@ FORMAPI.interceptors.response.use(
     resetAccess();
     location.href = PAGE_URL.SignIn;
   }
-);
+); */

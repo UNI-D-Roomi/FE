@@ -9,7 +9,7 @@ import {
 import AppStyles from "./AppStyles";
 import AuthRouter from "./AuthRouter";
 
-import { Loading } from "@/entities";
+import { Loading, Header } from "@/entities";
 import { PAGE_URL } from "@/configs/path";
 
 const Home = lazy(() => import("@/pages/home/HomePage"));
@@ -25,7 +25,7 @@ const PageRouter = () => (
         <Routes>
           <Route path={PAGE_URL.SignIn} element={<SignIn />} />
           <Route path={PAGE_URL.SignUp} element={<SignUp />} />
-          <Route element={<>Header</>}>
+          <Route element={<Header />}>
             <Route path={PAGE_URL.Home} element={<Home />} />
           </Route>
           <Route path="*" element={<Navigate to={PAGE_URL.Home} replace />} />
