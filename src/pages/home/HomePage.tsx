@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { Title } from "@/entities";
 
 const HomePage = () => {
-  return <Title>Home</Title>;
+  return <>Home</>;
 };
 
 export default HomePage;
