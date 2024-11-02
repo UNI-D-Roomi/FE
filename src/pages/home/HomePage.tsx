@@ -27,15 +27,15 @@ const HomePage = () => {
       </TitleContainer>
       <CanvasContainer>
         <Canvas
-          camera={{ position: [0, 0, 10], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
+          camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
         >
           <OrbitControls
-            enablePan={false}
-            enableZoom={false}
-            enableRotate={true}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-            maxAzimuthAngle={Math.PI / 4} // 오른쪽 회전 제한
+          // enablePan={false}
+          // enableZoom={false}
+          // enableRotate={true}
+          // maxPolarAngle={Math.PI / 2 }
+          // minPolarAngle={Math.PI / 2}
+          // maxAzimuthAngle={Math.PI / 4}   // 오른쪽 회전 제한
           />
           <ambientLight color={"#FFD700"} intensity={13} />
           <pointLight

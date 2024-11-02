@@ -10,4 +10,5 @@ export const SubTitle = styled.span`
   width: 100vw;
   text-align: left;
   padding: 20px 24px;
+  font-weight: 600;
 `;
