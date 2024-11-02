@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import UserRankItem from "./element/UserRankItem";
 import axios from "axios";
 import { useUserStore } from "@/stores/UserStore";
+import { API } from "@/configs";
 
 interface RankingItem {
   name: string;
@@ -19,20 +20,11 @@ const RankingPage = () => {
   useEffect(() => {
     const fetchMyRanking = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/grade/self`
-        );
+        const response = await API.get(`/grade/self`);
 
         // 내 순위와 포인트 설정
         setMyRank(response.data.rank);
         setMyPoints(response.data.points);
-
-        /*
-        const dummyRankData = { rank: 5, points: 500 };
-
-        setMyRank(dummyRankData.rank);
-        setMyPoints(dummyRankData.points);
-        */
       } catch (error) {
         console.error("순위 정보를 가져오는 데 실패했습니다:", error);
       }
@@ -40,9 +32,7 @@ const RankingPage = () => {
 
     const fetchRankingData = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/grade`
-        );
+        const response = await API.get(`/grade`);
 
         // 전체 순위 설정
         setRanking(response.data.ranking);
