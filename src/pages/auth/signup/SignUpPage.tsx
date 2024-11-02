@@ -33,7 +33,7 @@ const SignUpPage = () => {
       />
       <InputTitle>아이디</InputTitle>
       <Input
-        placeholder="ID"
+        placeholder="영문 5자 이상, 20자 이하"
         {...register("loginId", { required: true, maxLength: 30 })}
       />
       <InputTitle>비밀번호</InputTitle>

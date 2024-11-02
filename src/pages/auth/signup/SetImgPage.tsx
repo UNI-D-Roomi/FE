@@ -10,7 +10,7 @@ const SetImgPage = () => {
       <WidTitle>깨끗한 방 사진을</WidTitle>
       <WidTitle>한 장 추가해주세요.</WidTitle>
       <div style={{ height: "50px" }}></div>
-      <Link to={PAGE_URL.Camera} state={{ mode: "hello" }}>
+      <Link to={PAGE_URL.Camera} state={{ mode: "SIGNIN" }}>
         <BlueButton>사진 추가하기</BlueButton>
       </Link>
     </Container>

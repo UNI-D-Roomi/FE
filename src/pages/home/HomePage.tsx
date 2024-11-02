@@ -13,11 +13,11 @@ const HomePage = () => {
   scene.position.set(0, 0, 0);
 
   const handleLeftClick = () => {
-    navigate("/room");
+    navigate("/room", { state: { stage: 0, score: 0 } });
   };
 
   const handleRightClick = () => {
-    navigate("/dish");
+    navigate("/dish", { state: { stage: 0, score: 0 } });
   };
 
   return (
