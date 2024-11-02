@@ -29,7 +29,7 @@ const HomePage = () => {
 
   const dummyData: RoomieResponse = {
     id: 1,
-    hungerGage: 50,
+    hungerGage: 70,
     lastFeedTime: "2024-11-02T16:00:00Z",
     isRibbon: true,
     beforeWashImageUrl: "example_url",
