@@ -54,7 +54,7 @@ const HomePage = () => {
 
   // 모델을 중앙으로 이동
   roomieScene.position.set(0, 0, 0);
-  hungryScene.position.set(0, 0, 0);
+  hungryScene.position.set(0, 2, 0);
   ribbonScene.position.set(0, 0, 0);
 
   const handleLeftClick = () => {
