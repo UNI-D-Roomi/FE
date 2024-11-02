@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useUserStore } from "@/stores/UserStore";
 import { UserService } from "@/services/UserService";
+import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 
 export interface RoomieResponse {
   memberId: number;
@@ -24,6 +25,8 @@ export interface RoomieResponse {
 }
 
 import { Comment } from "@/entities";
+import { Link } from "react-router-dom";
+import { colors, PAGE_URL } from "@/configs";
 
 const HomePage = () => {
   const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
@@ -65,6 +68,10 @@ const HomePage = () => {
 
   return (
     <>
+      <Link to={PAGE_URL.Ranking}>
+        <StyledMilitaryTechIcon />
+      </Link>
+
       <Comment>"{roomieTalkMsg}"</Comment>
       <TitleContainer>
         <SubTitle>오늘의 루미를 시작해보세요</SubTitle>
@@ -92,6 +99,16 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+const StyledMilitaryTechIcon = styled(MilitaryTechIcon)`
+  position: absolute;
+
+  top: 30px;
+  right: 20px;
+
+  color: ${colors.red};
+  font-size: 60px;
+`;
 
 const TitleContainer = styled.div`
   margin-top: 30px;
