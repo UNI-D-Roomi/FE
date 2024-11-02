@@ -16,6 +16,8 @@ export interface RoomieResponse {
   washingStartTime: string;
 }
 
+import { Comment } from "@/entities";
+
 const HomePage = () => {
   const { scene: roomieScene } = useGLTF("./roomie1.glb");
   const { scene: hungryScene } = useGLTF("./roomie_hungry.glb");
@@ -66,11 +68,11 @@ const HomePage = () => {
   //ribbonScene.position.set(0, 0, 0);
 
   const handleLeftClick = () => {
-    navigate("/room", { state: { stage: 0, score: 0 } });
+    navigate("/room", { state: { stage: 0, score: 0, comment: "" } });
   };
 
   const handleRightClick = () => {
-    navigate("/dish", { state: { stage: 0, score: 0 } });
+    navigate("/dish", { state: { stage: 0, score: 0, comment: "" } });
   };
 
   const renderRoomie = () => {
@@ -91,6 +93,7 @@ const HomePage = () => {
 
   return (
     <>
+      <Comment>하이요</Comment>
       <TitleContainer>
         <SubTitle>오늘의 루미를 시작해보세요</SubTitle>
       </TitleContainer>

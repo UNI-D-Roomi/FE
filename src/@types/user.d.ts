@@ -18,7 +18,9 @@ declare namespace User {
   export interface Store {
     point: number;
     gauge: number;
+    isRibbon: boolean;
     setPoint: (point: number) => void;
     setGauge: (gauge: number) => void;
+    setIsRibbon: (isRibbon: boolean) => void;
   }
 }

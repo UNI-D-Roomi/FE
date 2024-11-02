@@ -5,7 +5,7 @@ export const UserService = () => {
   const URL = "/roomie";
   const upload = async (body: FormData) => {
     const { data } = (await FORMAPI.post(
-      `/sign-in/storage`,
+      `/storage`,
       body
     )) as AxiosResponse<string>;
 
@@ -14,9 +14,29 @@ export const UserService = () => {
 
   const startDish = async (url: string) => {
     await API.post(`${URL}/feed/wash-dish/before`, {
-      deforeRoomImage: url,
+      deforeDishImage: url,
     });
   };
 
-  return { upload, startDish };
+  const endDish = async (url: string) => {
+    const { data } = (await API.post(`${URL}/feed/wash-dish/after`, {
+      afterDishImage: url,
+    })) as AxiosResponse<{ score: number; comment: string }>;
+    return data;
+  };
+
+  const endRoom = async (url: string) => {
+    const { data } = (await API.post(`${URL}/feed/room`, {
+      afterRoomImage: url,
+    })) as AxiosResponse<{ score: number; comment: string }>;
+    return data;
+  };
+
+  const setImg = async (url: string) => {
+    await API.post(`${URL}/member/room-image`, {
+      imageUrl: url,
+    });
+  };
+
+  return { upload, startDish, endDish, endRoom, setImg };
 };

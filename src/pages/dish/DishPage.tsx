@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { OrangeButton, SubTitle } from "@/entities";
+import { OrangeButton, SubTitle, Comment } from "@/entities";
 import { useNavigate, useLocation } from "react-router";
 import { useState, useRef } from "react";
 import { PAGE_URL } from "@/configs";
@@ -23,7 +23,8 @@ const DishPage = () => {
   const handleNext = () => {
     if (stage === 0)
       navigate(PAGE_URL.Camera, { state: { mode: "BEFOREDISH" } });
-    else navigate(PAGE_URL.Camera, { state: { mode: "AFTERDISH" } });
+    if (stage === 2)
+      navigate(PAGE_URL.Camera, { state: { mode: "AFTERDISH" } });
     setStage((prev) => prev + 1); // 단계 증가
   };
 
@@ -82,8 +83,8 @@ const DishPage = () => {
             <SubTitle>
               점수는 {score.current}점 입니다
               <br />
-            </SubTitle>{" "}
-            {/*api 추가*/}
+            </SubTitle>
+            <Comment>{location.state.comment}</Comment>
           </>
         );
       default:
