@@ -3,7 +3,7 @@ import { immer } from "zustand/middleware/immer";
 
 export const useUserStore = create<User.Store>()(
   immer((set) => ({
-    point: 0,
+    point: 350,
 
     setPoint: (point: number) => {
       set((state) => {

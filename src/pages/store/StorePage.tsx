@@ -5,6 +5,7 @@ import { OrangeButton, RedButton, SubTitle } from "@/entities";
 import styled from "@emotion/styled";
 import { colors } from "@/configs";
 import Item from "./element/Item";
+import { useUserStore } from "@/stores/UserStore";
 import { ItemProps } from "./dto";
 
 const StorePage = () => {
@@ -12,6 +13,9 @@ const StorePage = () => {
   const [roomie, setRoomie] = useState("기본");
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const nav = useNavigate();
+
+  const point = useUserStore((state) => state.point);
+  const setPoint = useUserStore((state) => state.setPoint);
 
   const items: ItemProps[] = [
     { name: "리본", image: "리본 사진", price: 100 },
@@ -64,7 +68,7 @@ const StorePage = () => {
         alert("포인트가 부족합니다.");
       }
       */
-      //setPoints(points - item.price); // 포인트 차감
+      setPoint(point - item.price); // 포인트 차감
       setCurrentStep("itemPurchased");
     } catch (error) {
       console.error("아이템 구매 오류:", error);
