@@ -1,16 +1,16 @@
 declare namespace User {
   //DTO
   export interface SignInReqDto {
-    username: string;
+    id: string;
     password: string;
   }
 
   export interface SignInResDto {
-    result: {
-      id: number;
-      name: string;
-      access_token: string;
-      refresh_token: string;
-    };
+    accessToken: string;
+  }
+
+  export interface Store {
+    point: number;
+    setPoint: (point: number) => void;
   }
 }
