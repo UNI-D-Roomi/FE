@@ -8,3 +8,4 @@ export {
   resetAccess,
   getAccess,
 } from "./axios";
+export { dataURLtoFile } from "./dataURLtoFile";
