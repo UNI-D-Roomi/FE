@@ -19,9 +19,9 @@ export interface RoomieResponse {
 import { Comment } from "@/entities";
 
 const HomePage = () => {
-  const { scene: roomieScene } = useGLTF("./roomie1.glb");
-  const { scene: hungryScene } = useGLTF("./roomie_hungry.glb");
-  //const { scene: ribbonScene } = useGLTF("./roomie_ribbon.glb");
+  const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
+  const { scene: hungryScene } = useGLTF("./RoomieModel/roomie_hungry.glb");
+  const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
 
   const hungryGauge = useUserStore((state) => state.gauge);
   const setHungryGauge = useUserStore((state) => state.setGauge);
@@ -65,7 +65,7 @@ const HomePage = () => {
   // 모델을 중앙으로 이동
   roomieScene.position.set(0, 0, 0);
   hungryScene.position.set(0, 0, 0);
-  //ribbonScene.position.set(0, 0, 0);
+  ribbonScene.position.set(0, 0, 0);
 
   const handleLeftClick = () => {
     navigate("/room", { state: { stage: 0, score: 0, comment: "" } });
@@ -77,14 +77,10 @@ const HomePage = () => {
 
   const renderRoomie = () => {
     if (hungryGauge <= 30) {
-      if (isRibbon) {
-        return <primitive object={hungryScene} />; // 추후 수정 !!! 배고픈&리본 모델 렌더링
-      } else {
-        return <primitive object={hungryScene} />; // 배고픈 모델 렌더링
-      }
+      return <primitive object={hungryScene} />; // 배고픈 모델 렌더링
     } else {
       if (isRibbon) {
-        return <primitive object={roomieScene} />; // 추후 수정 !!! 기본&리본 모델 렌더링
+        return <primitive object={ribbonScene} />; // 리본 모델 렌더링
       } else {
         return <primitive object={roomieScene} />; // 기본 모델 렌더링
       }
