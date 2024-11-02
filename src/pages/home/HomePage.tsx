@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useUserStore } from "@/stores/UserStore";
 import { UserService } from "@/services/UserService";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
@@ -22,7 +23,6 @@ export interface RoomieResponse {
   washingStartTime: string;
   roomieTalkMsg: string;
 }
-
 import { Comment } from "@/entities";
 import { Link } from "react-router-dom";
 import { colors, PAGE_URL } from "@/configs";
@@ -70,7 +70,6 @@ const HomePage = () => {
       <Link to={PAGE_URL.Ranking}>
         <StyledMilitaryTechIcon />
       </Link>
-
       <Comment>"{roomieTalkMsg}"</Comment>
       <TitleContainer>
         <SubTitle>오늘의 루미를 시작해보세요</SubTitle>
