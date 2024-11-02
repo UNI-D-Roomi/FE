@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
+
+import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useUserStore } from "@/stores/UserStore";
 
 export interface RoomieResponse {
@@ -23,6 +25,7 @@ export interface RoomieResponse {
 }
 
 import { Comment } from "@/entities";
+import { colors, PAGE_URL } from "@/configs";
 
 const HomePage = () => {
   const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
@@ -102,6 +105,11 @@ const HomePage = () => {
 
   return (
     <>
+      <StyledMilitaryTechIcon
+        onClick={() => {
+          navigate(PAGE_URL.Ranking);
+        }}
+      />
       <Comment>"{roomieTalkMsg}"</Comment>
       <TitleContainer>
         <SubTitle>오늘의 루미를 시작해보세요</SubTitle>
@@ -129,6 +137,16 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+const StyledMilitaryTechIcon = styled(MilitaryTechIcon)`
+  position: absolute;
+
+  top: 30px;
+  right: 20px;
+
+  color: ${colors.red};
+  font-size: 60px;
+`;
 
 const TitleContainer = styled.div`
   margin-top: 30px;
