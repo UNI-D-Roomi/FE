@@ -3,13 +3,16 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useUserStore } from "@/stores/UserStore";
 
 const HomePage = () => {
   const { scene: roomieScene } = useGLTF("./roomie1.glb");
   const { scene: hungryScene } = useGLTF("./roomie_hungry.glb");
   const navigate = useNavigate();
-  const hungry = 30; 
+
+  const gauge = useUserStore((state) => state.gauge);
+  const setGauge = useUserStore((state) => state.setGauge);
 
   // 모델을 중앙으로 이동
   roomieScene.position.set(0, 0, 0);
@@ -23,14 +26,13 @@ const HomePage = () => {
     navigate("/dish", { state: { stage: 0, score: 0 } });
   };
 
-  const renderRoomie =()=>{
-    if(hungry <= 30){
+  const renderRoomie = () => {
+    if (gauge <= 30) {
       return <primitive object={hungryScene} />; // 기본 모델 렌더링
-    }
-    else{
+    } else {
       return <primitive object={roomieScene} />; // 기본 모델 렌더링
     }
-  }
+  };
 
   return (
     <>
@@ -41,13 +43,13 @@ const HomePage = () => {
         <Canvas
           camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
         >
-          <OrbitControls/>
+          <OrbitControls />
           <ambientLight color={"#FFD700"} intensity={8} />
           {renderRoomie()}
         </Canvas>
       </CanvasContainer>
       <ButtonContainer>
-        <Gauge percent={70} />
+        <Gauge percent={gauge} />
         <OrangeTwoButton
           leftText="방 청소하기"
           rightText="설거지하기"
@@ -64,7 +66,6 @@ export default HomePage;
 const TitleContainer = styled.div`
   margin-top: 30px;
   margin-left: 3px;
-  font-weight: bold;
 `;
 const CanvasContainer = styled.div`
   justify-content: center;
@@ -73,9 +74,11 @@ const CanvasContainer = styled.div`
   height: 60vh;
 `;
 const ButtonContainer = styled.div`
-  display: flex; // 추가: Flexbox 활성화
+  display: flex;
   flex-direction: column;
-  justify-content: center; // 추가: 수평 중앙 정렬
-  align-items: center; // 추가: 수직 중앙 정렬
-  margin-top: 20px; // 버튼과 다른 요소 사이의 간격을 추가
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 60px;
+  width: 100vw;
 `;
