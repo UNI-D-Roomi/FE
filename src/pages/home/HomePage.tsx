@@ -29,11 +29,9 @@ const HomePage = () => {
   const { scene: hungryScene } = useGLTF("./RoomieModel/roomie_hungry.glb");
   const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
 
-  const point = useUserStore((state) => state.point);
   const setPoint = useUserStore((state) => state.setPoint);
   const hungryGauge = useUserStore((state) => state.gauge);
   const setHungryGauge = useUserStore((state) => state.setGauge);
-  const isRibbon = useUserStore((state) => state.isRibbon);
   const setIsRibbon = useUserStore((state) => state.setIsRibbon);
   const setScenes = useUserStore((state) => state.setScenes);
   const renderRoomie = useUserStore((state) => state.renderRoomie);

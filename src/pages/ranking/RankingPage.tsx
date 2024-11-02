@@ -10,7 +10,6 @@ interface RankingItem {
 }
 
 const RankingPage = () => {
-  const [memberId] = useState(1);
   const [myName] = useState("내 이름");
   const [myRank, setMyRank] = useState(0);
   const [myPoints, setMyPoints] = useState(0);
