@@ -82,7 +82,7 @@ const DishPage= () => {
       case 0:
         return "사진 업로드하기";
       case 1:
-        return "설거지 시작하기";
+        return "홈으로 돌아가기";
       case 2:
         return "설거지 끝내기";
       case 3:
