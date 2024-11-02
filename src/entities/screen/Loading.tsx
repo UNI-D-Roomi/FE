@@ -1,20 +1,23 @@
 import styled from "@emotion/styled";
-import { PropagateLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 
 import { Background } from "@/entities";
+import { colors } from "@/configs";
 
 export const Loading = () => {
   return (
     <>
       <Background />
       <LoadingWrapper>
-        <PropagateLoader color="white" size={15} speedMultiplier={1} />
+        <img src="./logo/Roomie.png" width={170}></img>
+        <BeatLoader color={colors.yellow} size={30} speedMultiplier={1} />
       </LoadingWrapper>
     </>
   );
 };
+
 export const LoadingWrapper = styled.div`
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: ${colors.blue};
 
   position: absolute;
   top: 0px;
@@ -24,6 +27,8 @@ export const LoadingWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  gap: 40px;
 
   width: 100%;
   height: 100%;
