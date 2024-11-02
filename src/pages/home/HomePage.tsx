@@ -6,8 +6,8 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 
 const HomePage = () => {
-  const { scene: roomieScene } = useGLTF("./RommieModel/roomie1.glb");
-  const { scene: hungryScene } = useGLTF("./RommieModel/roomie_hungry.glb");
+  const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
+  const { scene: hungryScene } = useGLTF("./RoomieModel/roomie_hungry.glb");
   const navigate = useNavigate();
   const hungry = 30; 
 
