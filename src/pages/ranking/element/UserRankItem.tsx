@@ -38,8 +38,9 @@ const StyledSpan = styled.span<{ isMyRank: boolean }>`
   position: absolute;
   color: ${(props) => (props.isMyRank ? `${colors.red}` : `${colors.black}`)};
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 24px;
+  height: 22px;
   letter-spacing: -0.02em;
   text-align: left;
 `;

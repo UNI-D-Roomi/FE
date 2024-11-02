@@ -247,6 +247,6 @@ const ButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 44px;
+  bottom: 30px;
   width: 100vw;
 `;

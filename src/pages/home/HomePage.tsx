@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useUserStore } from "@/stores/UserStore";
 import { UserService } from "@/services/UserService";
@@ -124,6 +123,6 @@ const ButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 60px;
+  bottom: 30px;
   width: 100vw;
 `;
