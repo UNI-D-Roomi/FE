@@ -27,8 +27,8 @@ const StorePage = () => {
   const point = useUserStore((state) => state.point);
   const setPoint = useUserStore((state) => state.setPoint);
 
-  roomieScene.position.set(0, 0, 0);
-  ribbonScene.position.set(0, 0, 0);
+  roomieScene.position.set(0, 2, 0);
+  ribbonScene.position.set(0, 2, 0);
 
   const items: ItemProps[] = [
     { name: "리본", image: "/store/ribbon.png", price: 1000 },
