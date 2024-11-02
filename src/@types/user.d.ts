@@ -17,6 +17,8 @@ declare namespace User {
 
   export interface Store {
     point: number;
+    gauge: number;
     setPoint: (point: number) => void;
+    setGauge: (gauge: number) => void;
   }
 }
