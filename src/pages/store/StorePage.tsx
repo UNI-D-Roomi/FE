@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { OrangeButton, RedButton, SubTitle } from "@/entities";
 import styled from "@emotion/styled";
-import { colors } from "@/configs";
+import { colors, PAGE_URL } from "@/configs";
 import Item from "./element/Item";
 import { useUserStore } from "@/stores/UserStore";
 import { ItemProps } from "./dto";
@@ -11,6 +11,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls } from "@react-three/drei";
+import { UserService } from "@/services/UserService";
 
 const StorePage = () => {
   const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
@@ -18,7 +19,11 @@ const StorePage = () => {
   const [currentStep, setCurrentStep] = useState("default");
   const [roomie, setRoomie] = useState("기본");
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  const isRibbon = useUserStore((state) => state.isRibbon);
+
   const nav = useNavigate();
+
+  const { buyRiboon } = UserService();
 
   const point = useUserStore((state) => state.point);
   const setPoint = useUserStore((state) => state.setPoint);
@@ -73,8 +78,10 @@ const StorePage = () => {
           setPoint(point - item.price); // 포인트 차감
           setCurrentStep("itemPurchased");
         */
-        setPoint(point - item.price); // 포인트 차감
-        setCurrentStep("itemPurchased");
+        buyRiboon().then(() => {
+          setPoint(point - item.price); // 포인트 차감
+          setCurrentStep("itemPurchased");
+        });
       } else {
         alert("포인트가 부족합니다.");
       }
@@ -89,13 +96,17 @@ const StorePage = () => {
   };
 
   const handleBackToHome = () => {
-    nav("/");
+    nav(PAGE_URL.Home);
   };
 
   const renderRommie = () => {
     switch (currentStep) {
       case "default":
-        return <primitive object={roomieScene} />;
+        if (isRibbon) {
+          return <primitive object={ribbonScene} />;
+        } else {
+          return <primitive object={roomieScene} />;
+        }
       case "itemPurchased":
       case "itemApplied":
         return <primitive object={ribbonScene} />;

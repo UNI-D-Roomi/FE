@@ -17,7 +17,14 @@ export const AuthService = () => {
   };
 
   const signup = async (body: User.SignUpResDto) => {
-    await API.post(`${URL}/sign-up`, body);
+    const {
+      data: { accessToken },
+    } = (await API.post(`${URL}/sign-up`, body)) as AxiosResponse<{
+      accessToken: string;
+    }>;
+
+    setAccess(accessToken);
+    storeAccess(accessToken);
   };
 
   return { signin, signup };

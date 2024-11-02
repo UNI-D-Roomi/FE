@@ -24,6 +24,9 @@ const DishPage = () => {
   bubbleScene.position.set(0, 0, 0);
 
   const handleNext = () => {
+    if (stage === 3) {
+      navigate("/");
+    }
     if (stage === 0)
       navigate(PAGE_URL.Camera, { state: { mode: "BEFOREDISH" } });
     if (stage === 2)
@@ -80,7 +83,9 @@ const DishPage = () => {
         return (
           <>
             <SubTitle>
-              설거지를 아주 잘하셨네요!
+              {score.current >= 30
+                ? "설거지를 아주 잘하셨네요!!"
+                : "설거지가 아직 부족한 것 같아요"}
               <br />
             </SubTitle>
             <SubTitle>

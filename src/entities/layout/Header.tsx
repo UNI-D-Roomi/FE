@@ -1,6 +1,5 @@
 import { colors } from "@/configs";
 import styled from "@emotion/styled";
-import { useEffect } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import StorefrontIcon from "@mui/icons-material/Storefront";
@@ -8,19 +7,8 @@ import { useUserStore } from "@/stores/UserStore";
 
 export const Header = () => {
   const point = useUserStore((state) => state.point);
-  const setPoint = useUserStore((state) => state.setPoint);
 
   const nav = useNavigate();
-
-  // 임시
-  useEffect(() => {
-    const fetchPoint = async () => {
-      // axios.get("/api/point").then(response => setPoint(response.data.point));
-      setPoint(point); // 임시 값 설정
-    };
-
-    fetchPoint();
-  }, [point]);
 
   return (
     <>

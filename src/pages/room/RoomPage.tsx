@@ -23,8 +23,12 @@ const RoomPage = () => {
   dustScene.position.set(0, 0, 0);
 
   const handleNext = () => {
-    navigate(PAGE_URL.Camera, { state: { mode: "ROOM" } });
-    setStage((prev) => prev + 1); // 단계 증가
+    if (stage === 0) {
+      navigate(PAGE_URL.Camera, { state: { mode: "ROOM" } });
+      setStage((prev) => prev + 1); // 단계 증가
+    } else if (stage === 1) {
+      navigate("/");
+    }
   };
 
   const renderText = () => {
@@ -46,7 +50,9 @@ const RoomPage = () => {
         return (
           <>
             <SubTitle>
-              청소를 아주 잘하셨네요!
+              {score.current >= 30
+                ? "청소를 아주 잘하셨네요!!"
+                : "청소가 아직 부족한 것 같아요"}
               <br />
             </SubTitle>
             <SubTitle>

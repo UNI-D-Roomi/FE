@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { SubTitle } from "@/entities";
 import styled from "@emotion/styled";
 import UserRankItem from "./element/UserRankItem";
+import axios from "axios";
+import { useUserStore } from "@/stores/UserStore";
+import { API } from "@/configs";
 
 interface RankingItem {
   name: string;
@@ -9,28 +12,19 @@ interface RankingItem {
 }
 
 const RankingPage = () => {
-  const [memberId] = useState(1);
-  const [myName] = useState("내 이름");
   const [myRank, setMyRank] = useState(0);
   const [myPoints, setMyPoints] = useState(0);
   const [ranking, setRanking] = useState<RankingItem[]>([]);
+  const myName = useUserStore((state) => state.name);
 
   useEffect(() => {
     const fetchMyRanking = async () => {
       try {
-        /*
-        const response = await fetch(
-          `http://43.202.82.61:8080/api/grade/${memberId}/rank`
-        );
-        const data = await response.json();
+        const response = await API.get(`/grade/self`);
 
         // 내 순위와 포인트 설정
-        setMyRank(data.rank);
-        setMyPoints(data.points);
-        */
-
-        setMyRank(5);
-        setMyPoints(500);
+        setMyRank(response.data.rank);
+        setMyPoints(response.data.points);
       } catch (error) {
         console.error("순위 정보를 가져오는 데 실패했습니다:", error);
       }
@@ -38,14 +32,12 @@ const RankingPage = () => {
 
     const fetchRankingData = async () => {
       try {
-        /*
-        const response = await fetch(`http://43.202.82.61:8080/api/grade`);
-        const data = await response.json();
+        const response = await API.get(`/grade`);
 
         // 전체 순위 설정
-        setRanking(data.ranking);
-        */
+        setRanking(response.data.ranking);
 
+        /*
         const dummyRankingData = [
           { name: "사용자 1", points: 1000 },
           { name: "사용자 2", points: 800 },
@@ -56,6 +48,7 @@ const RankingPage = () => {
         ];
 
         setRanking(dummyRankingData);
+        */
       } catch (error) {
         console.error("순위 정보를 가져오는 데 실패했습니다:", error);
       }

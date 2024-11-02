@@ -6,6 +6,7 @@ interface UserStore {
   point: number;
   gauge: number;
   isRibbon: boolean;
+  name: string;
   hungryScene: Object3D | null;
   roomieScene: Object3D | null;
   ribbonScene: Object3D | null;
@@ -13,14 +14,16 @@ interface UserStore {
   setPoint: (point: number) => void;
   setGauge: (gauge: number) => void;
   setIsRibbon: (isRibbon: boolean) => void;
+  setName: (name: string) => void;
   setScenes: (hungry: Object3D, roomie: Object3D, ribbon: Object3D) => void;
   renderRoomie: () => JSX.Element | null;
 }
 
 export const useUserStore = create<UserStore>()(
   immer((set, get) => ({
-    point: 350,
-    gauge: 70,
+    point: 0,
+    gauge: 0,
+    name: "",
     isRibbon: false,
     hungryScene: null,
     roomieScene: null,
@@ -41,6 +44,12 @@ export const useUserStore = create<UserStore>()(
     setIsRibbon: (isRibbon: boolean) => {
       set((state) => {
         state.isRibbon = isRibbon;
+      });
+    },
+
+    setName: (name: string) => {
+      set((state) => {
+        state.name = name;
       });
     },
 
