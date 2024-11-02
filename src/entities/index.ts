@@ -12,3 +12,5 @@ export {
 
 export { Title, SubTitle } from "./element/Text";
 export { Gauge } from "./element/Gauge";
+
+export { Comment } from "./element/Comment";

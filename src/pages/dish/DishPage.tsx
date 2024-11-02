@@ -23,7 +23,8 @@ const DishPage = () => {
   const handleNext = () => {
     if (stage === 0)
       navigate(PAGE_URL.Camera, { state: { mode: "BEFOREDISH" } });
-    else navigate(PAGE_URL.Camera, { state: { mode: "AFTERDISH" } });
+    if (stage === 2)
+      navigate(PAGE_URL.Camera, { state: { mode: "AFTERDISH" } });
     setStage((prev) => prev + 1); // 단계 증가
   };
 

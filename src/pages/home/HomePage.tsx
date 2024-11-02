@@ -4,6 +4,8 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Gauge, OrangeTwoButton, SubTitle } from "@/entities";
 import { useNavigate } from "react-router";
 
+import { Comment } from "@/entities";
+
 const HomePage = () => {
   const { scene } = useGLTF("./roomie1.glb");
   const navigate = useNavigate();
@@ -22,6 +24,7 @@ const HomePage = () => {
 
   return (
     <>
+      <Comment>하이요</Comment>
       <TitleContainer>
         <SubTitle>오늘의 루미를 시작해보세요</SubTitle>
       </TitleContainer>

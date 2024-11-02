@@ -14,9 +14,33 @@ export const UserService = () => {
 
   const startDish = async (url: string) => {
     await API.post(`${URL}/feed/wash-dish/before`, {
-      deforeRoomImage: url,
+      deforeDishImage: url,
     });
   };
 
-  return { upload, startDish };
+  const endDish = async (url: string) => {
+    const {
+      data: { score },
+    } = (await API.post(`${URL}/feed/wash-dish/after`, {
+      afterDishImage: url,
+    })) as AxiosResponse<{ score: number }>;
+    return score;
+  };
+
+  const endRoom = async (url: string) => {
+    const {
+      data: { score },
+    } = (await API.post(`${URL}/feed/room`, {
+      afterRoomImage: url,
+    })) as AxiosResponse<{ score: number }>;
+    return score;
+  };
+
+  const setImg = async (url: string) => {
+    await API.post(`${URL}/member/room-image`, {
+      imageUrl: url,
+    });
+  };
+
+  return { upload, startDish, endDish, endRoom, setImg };
 };
