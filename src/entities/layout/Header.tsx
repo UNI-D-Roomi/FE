@@ -3,19 +3,21 @@ import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import { useUserStore } from "@/stores/UserStore";
 
 export const Header = () => {
-  const [point, setPoint] = useState(0);
+  const point = useUserStore((state) => state.point);
+  const setPoint = useUserStore((state) => state.setPoint);
 
   // 임시
   useEffect(() => {
     const fetchPoint = async () => {
       // axios.get("/api/point").then(response => setPoint(response.data.point));
-      setPoint(350); // 임시 값 설정
+      setPoint(point); // 임시 값 설정
     };
 
     fetchPoint();
-  }, []);
+  }, [point]);
 
   return (
     <>
