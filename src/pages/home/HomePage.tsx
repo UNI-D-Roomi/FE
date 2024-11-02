@@ -68,11 +68,11 @@ const HomePage = () => {
   //ribbonScene.position.set(0, 0, 0);
 
   const handleLeftClick = () => {
-    navigate("/room", { state: { stage: 0, score: 0 } });
+    navigate("/room", { state: { stage: 0, score: 0, comment: "" } });
   };
 
   const handleRightClick = () => {
-    navigate("/dish", { state: { stage: 0, score: 0 } });
+    navigate("/dish", { state: { stage: 0, score: 0, comment: "" } });
   };
 
   const renderRoomie = () => {

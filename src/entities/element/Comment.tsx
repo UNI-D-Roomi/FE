@@ -1,12 +1,12 @@
-import { colors } from "@/configs";
+//import { colors } from "@/configs";
 import styled from "@emotion/styled";
 
 export const Comment = styled.span`
-  font: 19px;
-  color: ${colors.red};
+  font-size: 19px;
+  color: #ffdc17;
 
   position: fixed;
-  top: 37%;
+  top: 35%;
   left: 50%;
 
   transform: translate(-50%, -50%);

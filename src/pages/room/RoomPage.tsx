@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { OrangeButton, SubTitle } from "@/entities";
+import { OrangeButton, SubTitle, Comment } from "@/entities";
 import { useNavigate, useLocation } from "react-router";
 import { useRef, useState } from "react";
 import { PAGE_URL } from "@/configs";
@@ -50,8 +50,8 @@ const RoomPage = () => {
             <SubTitle>
               점수는 {score.current}점 입니다
               <br />
-            </SubTitle>{" "}
-            {/*api 추가*/}
+            </SubTitle>
+            <Comment>{location.state.comment}</Comment>
           </>
         );
       default:

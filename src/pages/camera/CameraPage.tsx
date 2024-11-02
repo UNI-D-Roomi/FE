@@ -29,15 +29,19 @@ const CameraPage = () => {
       upload(formData).then((res) => {
         if (location.state.mode === "BEFOREDISH")
           startDish(res).then(() => {
-            navigate("/dish", { state: { stage: 3, score: 0 } });
+            navigate("/dish", { state: { stage: 3, score: 0, comment: "" } });
           });
         else if (location.state.mode === "AFTERDISH")
           endDish(res).then((res) => {
-            navigate("/dish", { state: { stage: 4, score: res } });
+            navigate("/dish", {
+              state: { stage: 4, score: res.score, comment: res.comment },
+            });
           });
         else if (location.state.mode === "ROOM")
           endRoom(res).then((res) => {
-            navigate("/room", { state: { stage: 1, score: res } });
+            navigate("/room", {
+              state: { stage: 1, score: res, comment: res.comment },
+            });
           });
         else
           setImg(res).then(() => {

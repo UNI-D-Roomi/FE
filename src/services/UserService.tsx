@@ -19,21 +19,17 @@ export const UserService = () => {
   };
 
   const endDish = async (url: string) => {
-    const {
-      data: { score },
-    } = (await API.post(`${URL}/feed/wash-dish/after`, {
+    const { data } = (await API.post(`${URL}/feed/wash-dish/after`, {
       afterDishImage: url,
-    })) as AxiosResponse<{ score: number }>;
-    return score;
+    })) as AxiosResponse<{ score: number; comment: string }>;
+    return data;
   };
 
   const endRoom = async (url: string) => {
-    const {
-      data: { score },
-    } = (await API.post(`${URL}/feed/room`, {
+    const { data } = (await API.post(`${URL}/feed/room`, {
       afterRoomImage: url,
-    })) as AxiosResponse<{ score: number }>;
-    return score;
+    })) as AxiosResponse<{ score: number; comment: string }>;
+    return data;
   };
 
   const setImg = async (url: string) => {
