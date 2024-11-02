@@ -19,6 +19,8 @@ const StorePage = () => {
   const [currentStep, setCurrentStep] = useState("default");
   const [roomie, setRoomie] = useState("기본");
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  const isRibbon = useUserStore((state) => state.isRibbon);
+
   const nav = useNavigate();
 
   const { buyRiboon } = UserService();
@@ -100,7 +102,11 @@ const StorePage = () => {
   const renderRommie = () => {
     switch (currentStep) {
       case "default":
-        return <primitive object={roomieScene} />;
+        if (isRibbon) {
+          return <primitive object={ribbonScene} />;
+        } else {
+          return <primitive object={roomieScene} />;
+        }
       case "itemPurchased":
       case "itemApplied":
         return <primitive object={ribbonScene} />;

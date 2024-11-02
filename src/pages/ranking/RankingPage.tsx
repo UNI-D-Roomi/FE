@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { SubTitle } from "@/entities";
 import styled from "@emotion/styled";
 import UserRankItem from "./element/UserRankItem";
+import axios from "axios";
 
 interface RankingItem {
   name: string;
@@ -19,18 +20,19 @@ const RankingPage = () => {
     const fetchMyRanking = async () => {
       try {
         /*
-        const response = await fetch(
-          `http://43.202.82.61:8080/api/grade/${memberId}/rank`
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/grade/${memberId}/rank`
         );
-        const data = await response.json();
 
         // 내 순위와 포인트 설정
-        setMyRank(data.rank);
-        setMyPoints(data.points);
+        setMyRank(response.data.rank);
+        setMyPoints(response.data.points);
         */
 
-        setMyRank(5);
-        setMyPoints(500);
+        const dummyRankData = { rank: 5, points: 500 };
+
+        setMyRank(dummyRankData.rank);
+        setMyPoints(dummyRankData.points);
       } catch (error) {
         console.error("순위 정보를 가져오는 데 실패했습니다:", error);
       }
@@ -39,11 +41,12 @@ const RankingPage = () => {
     const fetchRankingData = async () => {
       try {
         /*
-        const response = await fetch(`http://43.202.82.61:8080/api/grade`);
-        const data = await response.json();
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/grade`
+        );
 
         // 전체 순위 설정
-        setRanking(data.ranking);
+        setRanking(response.data.ranking);
         */
 
         const dummyRankingData = [

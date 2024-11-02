@@ -45,7 +45,7 @@ export const UserService = () => {
   const buyRiboon = async () => {
     await API.put(`${URL}/buy-roomie`);
 
-    setIsRibbon(false);
+    setIsRibbon(true);
   };
 
   return { upload, startDish, endDish, endRoom, setImg, buyRiboon };
