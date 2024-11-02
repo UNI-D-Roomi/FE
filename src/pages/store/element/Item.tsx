@@ -15,7 +15,7 @@ const Item = (item: ItemProps) => {
 
   return (
     <ItemContainer>
-      <Image>모델링 - {image}</Image>
+      <Image><img src={image}/></Image>
       <Price>
         <StyledMonetizationOnIcon />
         <span>{price}</span>
@@ -35,6 +35,10 @@ const ItemContainer = styled.div`
   height: 160px;
   width: 160px;
   background-color: ${colors.white};
+  img {
+    width: 130px; // 이미지 크기 조절
+    height: auto;
+  }
 `;
 
 const Image = styled.div`
@@ -46,7 +50,6 @@ const Image = styled.div`
   top: 0;
   width: 130px;
   height: 130px;
-  background-color: #d9d9d9;
 `;
 
 const StyledMonetizationOnIcon = styled(MonetizationOnIcon)`

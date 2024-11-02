@@ -9,8 +9,12 @@ import { useUserStore } from "@/stores/UserStore";
 import { ItemProps } from "./dto";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { Canvas } from "@react-three/fiber";
+import { useGLTF, OrbitControls } from "@react-three/drei";
 
 const StorePage = () => {
+  const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
+const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
   const [currentStep, setCurrentStep] = useState("default");
   const [roomie, setRoomie] = useState("기본");
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
@@ -19,17 +23,20 @@ const StorePage = () => {
   const point = useUserStore((state) => state.point);
   const setPoint = useUserStore((state) => state.setPoint);
 
+  roomieScene.position.set(0, 0, 0);
+  ribbonScene.position.set(0, 0, 0);
+
   const items: ItemProps[] = [
-    { name: "리본", image: "리본", price: 100 },
-    { name: "선글라스", image: "선글라스", price: 200 },
+    { name: "리본", image: "/store/ribbon.png", price: 100 },
+    { name: "선글라스", image: "/store/sunglasses.png", price: 200 },
   ];
 
   const item = items[currentItemIndex];
 
   // 아이템 착용 상태를 관리하는 객체
   const itemWearStates: { [key: string]: string } = {
-    리본: "리본 착용 모델 경로",
-    선글라스: "선글라스 착용 모델 경로",
+    리본: "/store/ribbon.png",
+    선글라스: "/store/sunglasses.png",
   };
 
   // 아이템 전환 함수
@@ -44,8 +51,13 @@ const StorePage = () => {
   };
 
   const handleApplyItem = () => {
-    setRoomie(itemWearStates[item.name]);
-    setCurrentStep("itemApplied");
+    if(item.name == "선글라스"){
+      alert("현재는 선글라스를 착용할 수 없습니다!");
+    }
+    else{
+      setRoomie(itemWearStates[item.name]);
+      setCurrentStep("itemApplied");
+    }
   };
 
   // 아이템 구매하기
@@ -64,7 +76,8 @@ const StorePage = () => {
         */
         setPoint(point - item.price); // 포인트 차감
         setCurrentStep("itemPurchased");
-      } else {
+      }
+      else {
         alert("포인트가 부족합니다.");
       }
     } catch (error) {
@@ -81,6 +94,18 @@ const StorePage = () => {
     nav("/");
   };
 
+  const renderRommie =()=>{
+    switch(currentStep){
+        case "default" :
+          return <primitive object={roomieScene} />; 
+        case "itemPurchased" : 
+        case "itemApplied":
+          return <primitive object={ribbonScene} />; 
+        default : 
+          return null;
+    };
+  }
+
   return (
     <Layout>
       {currentStep === "default" && (
@@ -91,7 +116,13 @@ const StorePage = () => {
             루미를 꾸밀 아이템을 구매해보세요
           </SubTitle>
           <RoomieContainer currentStep={currentStep}>
-            모델링 - {roomie}
+            <Canvas
+            camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
+            >
+              <OrbitControls/>
+              <ambientLight color={"#FFD700"} intensity={8} />
+              {renderRommie()}
+            </Canvas>
           </RoomieContainer>
           <ItemContainer>
             <ArrowButton onClick={handlePreviousItem}>
@@ -118,7 +149,13 @@ const StorePage = () => {
             루미를 꾸밀 아이템을 구매해보세요
           </SubTitle>
           <RoomieContainer currentStep={currentStep}>
-            모델링 - {roomie}
+            <Canvas
+            camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
+            >
+              <OrbitControls/>
+              <ambientLight color={"#FFD700"} intensity={8} />
+              {renderRommie()}
+            </Canvas>
           </RoomieContainer>
           <ButtonContainer>
             <OrangeButton onClick={handlePurchaseItem}>
@@ -135,7 +172,13 @@ const StorePage = () => {
         <>
           <SubTitle>아이템을 구매했어요 !</SubTitle>
           <RoomieContainer currentStep={currentStep}>
-            모델링 - {roomie}
+            <Canvas
+            camera={{ position: [0, 0, 13], fov: 50 }} // 카메라를 뒤로 배치하고 fov 설정
+            >
+              <OrbitControls/>
+              <ambientLight color={"#FFD700"} intensity={8} />
+              {renderRommie()}
+            </Canvas>
           </RoomieContainer>
           <ButtonContainer>
             <RedButton onClick={handleBackToHome}>홈으로 돌아가기</RedButton>
@@ -159,10 +202,9 @@ const RoomieContainer = styled.div<{ currentStep: string }>`
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: ${(props) => (props.currentStep === "default" ? "240px" : "280px")};
-  width: 300px;
-  height: 300px;
-  background-color: #d9d9d9;
+  top: ${(props) => (props.currentStep === "default" ? "160px" : "180px")};
+  width: 100vw;
+  height: 60vh;
 `;
 
 const ItemContainer = styled.div`
@@ -171,9 +213,6 @@ const ItemContainer = styled.div`
   justify-content: center;
   position: fixed;
   bottom: 120px;
-  width: 230px;
-  height: 160px;
-  //background-color: #d9d9d9;
   border-radius: 8px;
 `;
 
