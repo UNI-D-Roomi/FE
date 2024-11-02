@@ -2,11 +2,15 @@ import styled from "@emotion/styled";
 import { Camera } from "react-camera-pro";
 import { useState, useRef, useEffect } from "react";
 import CameraIcon from "@mui/icons-material/Camera";
+import { useLocation } from "react-router-dom";
 
 import { RedButton } from "@/entities";
 import { dataURLtoFile } from "@/configs";
 
 const CameraPage = () => {
+  const location = useLocation();
+  console.log(location.state.mode);
+
   const camera = useRef<{
     width: string;
     height: string;
