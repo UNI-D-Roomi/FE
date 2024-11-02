@@ -9,3 +9,5 @@ export {
   OrangeTwoButton,
   RedButton,
 } from "./element/Button";
+
+export { Title } from "./element/Title";
