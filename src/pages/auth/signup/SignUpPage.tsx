@@ -28,7 +28,7 @@ const SignUpPage = () => {
       <div style={{ height: "50px" }}></div>
       <InputTitle>닉네임</InputTitle>
       <Input
-        placeholder="빅네임을 입력해주세요"
+        placeholder="닉네임을 입력해주세요"
         {...register("name", { required: true, maxLength: 30 })}
       />
       <InputTitle>아이디</InputTitle>
