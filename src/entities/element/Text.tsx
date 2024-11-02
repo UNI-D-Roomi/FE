@@ -6,4 +6,8 @@ export const Title = styled.span`
 
 export const SubTitle = styled.span`
   font-size: 20px;
+  line-height: 28px;
+  width: 100vw;
+  text-align: left;
+  padding: 20px 24px;
 `;

@@ -1,5 +1,24 @@
 import { AxiosResponse } from "axios";
+import { API, setAccess, storeAccess } from "@/configs";
 
 export const AuthService = () => {
-  return {};
+  const URL = "/member";
+
+  const signin = async (body: User.SignInReqDto) => {
+    const {
+      data: { accessToken },
+    } = (await API.post(
+      `${URL}/signin`,
+      body
+    )) as AxiosResponse<User.SignInResDto>;
+
+    setAccess(accessToken);
+    storeAccess(accessToken);
+  };
+
+  const signup = async (body: User.SignUpResDto) => {
+    await API.post(`${URL}/signin`, body);
+  };
+
+  return { signin, signup };
 };

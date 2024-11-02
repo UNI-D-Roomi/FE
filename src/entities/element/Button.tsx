@@ -13,6 +13,7 @@ const Button = styled.button`
   border-radius: 7px;
 
   font-size: 19px;
+  margin: 6px;
 `;
 
 export const BlueButton = styled(Button)`
