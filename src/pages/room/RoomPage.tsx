@@ -5,6 +5,7 @@ import { OrangeButton, SubTitle, Comment } from "@/entities";
 import { useNavigate, useLocation } from "react-router";
 import { useRef, useState } from "react";
 import { PAGE_URL } from "@/configs";
+import { useUserStore } from "@/stores/UserStore";
 
 const RoomPage = () => {
   // const { scene } = useGLTF("./roomie1.glb");
@@ -12,6 +13,7 @@ const RoomPage = () => {
   const location = useLocation();
   const [stage, setStage] = useState(location.state.stage); // 상태를 관리하는 변수 (0: 사진 업로드 전, 1: 설거지 시작, 2: 설거지 끝내기)
   const score = useRef(location.state.score);
+  const globalRenderRoomie = useUserStore((state) => state.renderRoomie);
 
   const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
   const { scene: dustScene } = useGLTF("./RoomieModel/Roomie_dust.glb");
@@ -60,18 +62,17 @@ const RoomPage = () => {
   };
 
   const renderRoomie = () => {
-    switch (stage) {
-      case 0:
-        return <primitive object={roomieScene} />; // 기본 모델 렌더링
-      case 1:
-        return (
-          <group>
-            <primitive object={roomieScene} />
-            <primitive object={dustScene} />
-          </group>
-        );
-      default:
-        return null;
+    if (stage === 0) {
+      return globalRenderRoomie(); // Use global render logic for initial stages
+    } else if (stage === 1) {
+      return (
+        <group>
+          <primitive object={roomieScene} />
+          <primitive object={dustScene} /> {/* Add bubble effect */}
+        </group>
+      );
+    } else {
+      return null;
     }
   };
 
