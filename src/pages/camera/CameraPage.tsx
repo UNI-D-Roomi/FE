@@ -2,14 +2,18 @@ import styled from "@emotion/styled";
 import { Camera } from "react-camera-pro";
 import { useState, useRef, useEffect } from "react";
 import CameraIcon from "@mui/icons-material/Camera";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { RedButton } from "@/entities";
-import { dataURLtoFile } from "@/configs";
+import { RedButton, Loading } from "@/entities";
+import { UserService } from "@/services/UserService";
+import { dataURLtoFile, PAGE_URL } from "@/configs";
 
 const CameraPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   console.log(location.state.mode);
+
+  const { upload, startDish, endDish, endRoom, setImg } = UserService();
 
   const camera = useRef<{
     width: string;
@@ -21,13 +25,35 @@ const CameraPage = () => {
   useEffect(() => {
     if (image) {
       const formData = new FormData();
-      formData.append("multipartFile", dataURLtoFile(image, "image"));
-      //upload(formData);
+      formData.append("file", dataURLtoFile(image, "file"));
+      upload(formData).then((res) => {
+        if (location.state.mode === "BEFOREDISH")
+          startDish(res).then(() => {
+            navigate("/dish", { state: { stage: 3, score: 0, comment: "" } });
+          });
+        else if (location.state.mode === "AFTERDISH")
+          endDish(res).then((res) => {
+            navigate("/dish", {
+              state: { stage: 4, score: res.score, comment: res.comment },
+            });
+          });
+        else if (location.state.mode === "ROOM")
+          endRoom(res).then((res) => {
+            navigate("/room", {
+              state: { stage: 1, score: res, comment: res.comment },
+            });
+          });
+        else
+          setImg(res).then(() => {
+            navigate(PAGE_URL.SignIn);
+          });
+      });
     }
   }, [image]);
 
   return (
     <>
+      {image ? <Loading /> : null}
       <Target1>
         <img src="/icons/target1.svg" alt="target" />
       </Target1>

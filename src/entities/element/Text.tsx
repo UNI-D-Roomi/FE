@@ -9,6 +9,6 @@ export const SubTitle = styled.span`
   line-height: 28px;
   width: 100vw;
   text-align: left;
-  padding: 20px 24px;
+  padding: 26px 30px;
   font-weight: 600;
 `;

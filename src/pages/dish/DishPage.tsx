@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { OrangeButton, SubTitle } from "@/entities";
+import { OrangeButton, SubTitle, Comment } from "@/entities";
 import { useNavigate, useLocation } from "react-router";
 import { useState, useRef } from "react";
 import { PAGE_URL } from "@/configs";
@@ -23,7 +23,8 @@ const DishPage = () => {
   const handleNext = () => {
     if (stage === 0)
       navigate(PAGE_URL.Camera, { state: { mode: "BEFOREDISH" } });
-    else navigate(PAGE_URL.Camera, { state: { mode: "AFTERDISH" } });
+    if (stage === 2)
+      navigate(PAGE_URL.Camera, { state: { mode: "AFTERDISH" } });
     setStage((prev) => prev + 1); // 단계 증가
   };
 
@@ -82,8 +83,8 @@ const DishPage = () => {
             <SubTitle>
               점수는 {score.current}점 입니다
               <br />
-            </SubTitle>{" "}
-            {/*api 추가*/}
+            </SubTitle>
+            <Comment>{location.state.comment}</Comment>
           </>
         );
       default:
@@ -151,9 +152,7 @@ export default DishPage;
 
 const TitleContainer = styled.div`
   margin-top: 30px;
-  margin-left: 15px;
-  text-align: left;
-  font-weight: bold;
+  margin-left: 3px;
   width: 100%;
 `;
 const CanvasContainer = styled.div`
@@ -163,8 +162,11 @@ const CanvasContainer = styled.div`
   height: 60vh;
 `;
 const ButtonContainer = styled.div`
-  display: flex; // 추가: Flexbox 활성화
-  justify-content: center; // 추가: 수평 중앙 정렬
-  align-items: center; // 추가: 수직 중앙 정렬
-  margin-top: 20px; // 버튼과 다른 요소 사이의 간격을 추가
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 60px;
+  width: 100vw;
 `;
