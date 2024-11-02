@@ -5,11 +5,14 @@ import CameraIcon from "@mui/icons-material/Camera";
 import { useLocation } from "react-router-dom";
 
 import { RedButton } from "@/entities";
+import { UserService } from "@/services/UserService";
 import { dataURLtoFile } from "@/configs";
 
 const CameraPage = () => {
   const location = useLocation();
   console.log(location.state.mode);
+
+  const { upload } = UserService();
 
   const camera = useRef<{
     width: string;
@@ -21,8 +24,8 @@ const CameraPage = () => {
   useEffect(() => {
     if (image) {
       const formData = new FormData();
-      formData.append("multipartFile", dataURLtoFile(image, "image"));
-      //upload(formData);
+      formData.append("file", dataURLtoFile(image, "file"));
+      upload(formData);
     }
   }, [image]);
 
