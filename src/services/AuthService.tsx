@@ -8,7 +8,7 @@ export const AuthService = () => {
     const {
       data: { accessToken },
     } = (await API.post(
-      `${URL}/signin`,
+      `${URL}/sign-in`,
       body
     )) as AxiosResponse<User.SignInResDto>;
 
@@ -17,7 +17,7 @@ export const AuthService = () => {
   };
 
   const signup = async (body: User.SignUpResDto) => {
-    await API.post(`${URL}/signin`, body);
+    await API.post(`${URL}/sign-up`, body);
   };
 
   return { signin, signup };
