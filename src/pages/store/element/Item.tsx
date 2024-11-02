@@ -34,7 +34,6 @@ const ItemContainer = styled.div`
   justify-content: center;
   height: 160px;
   width: 160px;
-  background-color: ${colors.white};
   img {
     width: 130px; // 이미지 크기 조절
     height: auto;
@@ -46,7 +45,6 @@ const Image = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  color: ${colors.black};
   top: 0;
   width: 130px;
   height: 130px;
