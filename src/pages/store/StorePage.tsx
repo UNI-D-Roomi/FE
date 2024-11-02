@@ -30,8 +30,8 @@ const StorePage = () => {
   ribbonScene.position.set(0, 0, 0);
 
   const items: ItemProps[] = [
-    { name: "리본", image: "/store/ribbon.png", price: 100 },
-    { name: "선글라스", image: "/store/sunglasses.png", price: 200 },
+    { name: "리본", image: "/store/ribbon.png", price: 1000 },
+    { name: "선글라스", image: "/store/sunglasses.png", price: 2000 },
   ];
 
   const item = items[currentItemIndex];
@@ -76,7 +76,6 @@ const StorePage = () => {
           setPoint(point - item.price); // 포인트 차감
           setCurrentStep("itemPurchased");
         */
-
         buyRiboon().then(() => {
           setPoint(point - item.price); // 포인트 차감
           setCurrentStep("itemPurchased");
