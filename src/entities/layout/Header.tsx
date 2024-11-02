@@ -18,9 +18,14 @@ export const Header = () => {
 
   return (
     <>
+      <HeaderSpace />
       <HeaderContainer>
         <Logo to="/">Roomie</Logo>
-        <Point>포인트 : {point}점</Point>
+        <PointWrapper>
+          <span className="span">포인트 : &nbsp;</span>
+          <Point>{point}</Point>
+          <span className="span">점</span>
+        </PointWrapper>
       </HeaderContainer>
       <Container>
         <Outlet />
@@ -35,9 +40,18 @@ const Container = styled.main`
   width: 100vw;
 
   left: 0;
-  top: 48px;
+  top: 88px;
 
   overflow-y: auto;
+`;
+
+const HeaderSpace = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 40px;
+  left: 0;
+  top: 0;
+  background-color: ${colors.blue};
 `;
 
 const HeaderContainer = styled.div`
@@ -47,8 +61,8 @@ const HeaderContainer = styled.div`
   width: 100vw;
   height: 48px;
   left: 0;
-  top: 0;
-  background-color: skyblue;
+  top: 40px;
+  background-color: ${colors.blue};
 `;
 
 const Logo = styled(Link)`
@@ -62,13 +76,35 @@ const Logo = styled(Link)`
   text-align: left;
 `;
 
+const PointWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  min-width: 110px;
+  padding: 0 16px;
+  height: 48px;
+  right: 0;
+  margin: 0 20px;
+  border-top-right-radius: 18px;
+  border-top-left-radius: 18px;
+  background-color: ${colors.white};
+
+  .span {
+    color: ${colors.black};
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+  }
+`;
+
 const Point = styled.span`
-  color: ${colors.red};
+  color: ${colors.black};
   font-family: Pretendard;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   line-height: 24px;
   letter-spacing: -0.02em;
-  margin-left: auto;
-  padding: 0 20px;
 `;
