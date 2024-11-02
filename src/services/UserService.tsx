@@ -5,7 +5,7 @@ export const UserService = () => {
   const URL = "/roomie";
   const upload = async (body: FormData) => {
     const { data } = (await FORMAPI.post(
-      `/sign-in/storage`,
+      `/storage`,
       body
     )) as AxiosResponse<string>;
 

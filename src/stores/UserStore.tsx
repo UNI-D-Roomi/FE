@@ -5,6 +5,7 @@ export const useUserStore = create<User.Store>()(
   immer((set) => ({
     point: 350,
     gauge: 70,
+    isRibbon: false,
 
     setPoint: (point: number) => {
       set((state) => {
@@ -15,6 +16,12 @@ export const useUserStore = create<User.Store>()(
     setGauge: (gauge) => {
       set((state) => {
         state.gauge = gauge;
+      });
+    },
+
+    setIsRibbon: (isRibbon: boolean) => {
+      set((state) => {
+        state.isRibbon = isRibbon;
       });
     },
   }))
