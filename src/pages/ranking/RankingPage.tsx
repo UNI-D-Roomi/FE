@@ -3,6 +3,7 @@ import { SubTitle } from "@/entities";
 import styled from "@emotion/styled";
 import UserRankItem from "./element/UserRankItem";
 import axios from "axios";
+import { useUserStore } from "@/stores/UserStore";
 
 interface RankingItem {
   name: string;
@@ -10,10 +11,10 @@ interface RankingItem {
 }
 
 const RankingPage = () => {
-  const [myName] = useState("내 이름");
   const [myRank, setMyRank] = useState(0);
   const [myPoints, setMyPoints] = useState(0);
   const [ranking, setRanking] = useState<RankingItem[]>([]);
+  const myName = useUserStore((state) => state.name);
 
   useEffect(() => {
     const fetchMyRanking = async () => {
@@ -55,7 +56,6 @@ const RankingPage = () => {
           { name: "내 이름", points: 500 }, // 내 순위
           { name: "사용자 6", points: 400 },
         ];
-        
 
         setRanking(dummyRankingData);
         */
