@@ -37,7 +37,6 @@ const Container = styled.div`
 const StyledSpan = styled.span<{ isMyRank: boolean }>`
   position: absolute;
   color: ${(props) => (props.isMyRank ? `${colors.red}` : `${colors.black}`)};
-  font-family: Pretendard;
   font-size: 15px;
   font-weight: 500;
   line-height: 24px;
