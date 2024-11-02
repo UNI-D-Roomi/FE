@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { SubTitle } from "@/entities";
 import styled from "@emotion/styled";
 import UserRankItem from "./element/UserRankItem";
-import axios from "axios";
 import { useUserStore } from "@/stores/UserStore";
 import { API } from "@/configs";
 

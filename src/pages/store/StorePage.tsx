@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import axios from "axios";
 import { OrangeButton, RedButton, SubTitle } from "@/entities";
 import styled from "@emotion/styled";
 import { colors, PAGE_URL } from "@/configs";
@@ -17,7 +16,7 @@ const StorePage = () => {
   const { scene: roomieScene } = useGLTF("./RoomieModel/roomie1.glb");
   const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
   const [currentStep, setCurrentStep] = useState("default");
-  const [roomie, setRoomie] = useState("기본");
+  //const [roomie, setRoomie] = useState("기본");
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const isRibbon = useUserStore((state) => state.isRibbon);
 
@@ -39,10 +38,10 @@ const StorePage = () => {
   const item = items[currentItemIndex];
 
   // 아이템 착용 상태를 관리하는 객체
-  const itemWearStates: { [key: string]: string } = {
+  /* const itemWearStates: { [key: string]: string } = {
     리본: "/store/ribbon.png",
     선글라스: "/store/sunglasses.png",
-  };
+  }; */
 
   // 아이템 전환 함수
   const handleNextItem = () => {
@@ -59,7 +58,7 @@ const StorePage = () => {
     if (item.name == "선글라스") {
       alert("현재는 선글라스를 착용할 수 없습니다!");
     } else {
-      setRoomie(itemWearStates[item.name]);
+      //setRoomie(itemWearStates[item.name]);
       setCurrentStep("itemApplied");
     }
   };
@@ -92,7 +91,7 @@ const StorePage = () => {
 
   const handleBackToDefault = () => {
     setCurrentStep("default");
-    setRoomie("기본");
+    //setRoomie("기본");
   };
 
   const handleBackToHome = () => {
