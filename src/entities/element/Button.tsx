@@ -25,6 +25,11 @@ export const OrangeButton = styled(Button)`
   background-color: ${colors.orange};
 `;
 
+export const RedButton = styled(Button)`
+  width: 332px;
+  background-color: ${colors.red};
+`;
+
 const OrangeHalfButton = styled(OrangeButton)`
   width: 160px;
 `;
