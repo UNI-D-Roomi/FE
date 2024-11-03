@@ -19,7 +19,6 @@ const CameraPage = () => {
     width: string;
     height: string;
     takePhoto: () => React.SetStateAction<null>;
-    switchCamera: () => void;
   }>(null);
 
   const [image, setImage] = useState(null);
@@ -53,10 +52,6 @@ const CameraPage = () => {
     }
   }, [image]);
 
-  useEffect(() => {
-    camera.current.switchCamera();
-  }, []);
-
   return (
     <>
       {image ? <Loading /> : null}
@@ -75,7 +70,6 @@ const CameraPage = () => {
       <CameraContainer>
         <Camera
           ref={camera}
-          facingMode='environment'
           errorMessages={{
             noCameraAccessible:
               "No camera device accessible. Please connect your camera or try a different browser.",
