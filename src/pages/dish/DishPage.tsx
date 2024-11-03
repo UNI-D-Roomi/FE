@@ -83,7 +83,7 @@ const DishPage = () => {
         return (
           <>
             <SubTitle>
-              {score.current >= 30
+              {score.current >= 70
                 ? "설거지를 아주 잘하셨네요!!"
                 : "설거지가 아직 부족한 것 같아요"}
               <br />
