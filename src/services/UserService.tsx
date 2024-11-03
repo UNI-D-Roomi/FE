@@ -11,21 +11,38 @@ export const UserService = () => {
   const setHungryGauge = useUserStore((state) => state.setGauge);
 
   const fetchRoomieCurrent = async () => {
-    try {
-      const response = await API.get<User.RoomieResponse>(`/roomie/home`);
+    let callCount = 0; // Counter for the number of API calls
 
-      console.log(response);
+    const fetchData = async () => {
+      try {
+        const response = await API.get<User.RoomieResponse>(`/roomie/home`);
+        console.log(response);
 
-      if (response.data) {
-        setPoint(response.data.points);
-        setHungryGauge(response.data.hungerGage);
-        setIsRibbon(response.data.isRibbon);
-        setName(response.data.name);
-        setRoomieTalkMsg(response.data.roomieTalkMsg);
+        if (response.data) {
+          if (callCount === 0) {
+            setPoint(response.data.points);
+            setHungryGauge(response.data.hungerGage);
+            setIsRibbon(response.data.isRibbon);
+            setName(response.data.name);
+            setRoomieTalkMsg(response.data.roomieTalkMsg);
+          } else {
+            setHungryGauge(response.data.hungerGage);
+          }
+
+          callCount += 1;
+
+          if (callCount >= 4) {
+            clearInterval(interval);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch Roomie data:", error);
+        clearInterval(interval);
       }
-    } catch (error) {
-      console.error("Failed to fetch Roomie data:", error);
-    }
+    };
+
+    const interval = setInterval(fetchData, 1500);
+    fetchData();
   };
 
   const upload = async (body: FormData) => {
