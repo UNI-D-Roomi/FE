@@ -125,7 +125,7 @@ const CameraPage = () => {
         <img src="/icons/target4.svg" alt="target" />
       </Target4>
       <CameraContainer>
-        <video ref={videoRef} autoPlay playsInline style={{ width: "100%" }} />
+        <video ref={videoRef} autoPlay playsInline />
         <canvas ref={canvasRef} style={{ display: "none" }} />
         <SubmitButton onClick={capturePhoto}>
           <CameraIcon fontSize="large" />
@@ -136,12 +136,17 @@ const CameraPage = () => {
 };
 
 const CameraContainer = styled.div`
-  height: 100%;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+
   video {
     position: absolute;
-    top: 0px;
-    width: 100%;
-    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* 비율 유지하며 화면을 꽉 채움 */
     z-index: -1;
   }
 `;
