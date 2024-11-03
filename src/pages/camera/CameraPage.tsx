@@ -11,7 +11,6 @@ import { dataURLtoFile, PAGE_URL } from "@/configs";
 const CameraPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location.state.mode);
 
   const { upload, startDish, endDish, endRoom, setImg } = UserService();
 
@@ -19,7 +18,12 @@ const CameraPage = () => {
     width: string;
     height: string;
     takePhoto: () => React.SetStateAction<null>;
+    switchCamera: () => void;
   }>(null);
+
+  useEffect(() => {
+    camera.current.switchCamera();
+  }, []);
 
   const [image, setImage] = useState(null);
 
