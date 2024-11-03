@@ -7,11 +7,13 @@ export const UserService = () => {
   const setIsRibbon = useUserStore((state) => state.setIsRibbon);
   const setRoomieTalkMsg = useUserStore((state) => state.setRoomieTalkMsg);
   const setPoint = useUserStore((state) => state.setPoint);
-  const setHungryGauge = useUserStore((state) => state.setPoint);
+  const setHungryGauge = useUserStore((state) => state.setGauge);
 
   const fetchRoomieCurrent = async () => {
     try {
       const response = await API.get<User.RoomieResponse>(`/roomie/home`);
+
+      console.log(response);
 
       if (response.data) {
         setPoint(response.data.points);
