@@ -50,7 +50,7 @@ const RoomPage = () => {
         return (
           <>
             <SubTitle>
-              {score.current >= 30
+              {score.current >= 70
                 ? "청소를 아주 잘하셨네요!!"
                 : "청소가 아직 부족한 것 같아요"}
               <br />
