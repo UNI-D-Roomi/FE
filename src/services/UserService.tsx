@@ -88,7 +88,7 @@ export const UserService = () => {
   };
 
   const buyRiboon = async () => {
-    await API.put(`${URL}/buy-roomie`);
+    await API.put(`${URL}/buy-riboon`);
 
     setIsRibbon(true);
   };
