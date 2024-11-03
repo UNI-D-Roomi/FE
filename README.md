@@ -13,7 +13,12 @@ Demo Service(It could be closed soon!): https://roomie-service.netlify.app/
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"><br/><img src="https://img.shields.io/badge/zustand-3178C6?style=for-the-badge&logo=zustand&logoColor=white"> <img src="https://img.shields.io/badge/react router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
 
 ## Core Feature
-  1. 
+
+### Roomie 3D Modeling
+### Feeding Roomie 
+### Collect Points & Buy Item
+### Image API Processing
+
 <br><br><br>
 # 2. Service Information
 ## 2-a. Service Background
