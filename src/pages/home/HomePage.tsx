@@ -32,11 +32,12 @@ const HomePage = () => {
   const { scene: ribbonScene } = useGLTF("./RoomieModel/Roomie_ribbon.glb");
 
   const hungryGauge = useUserStore((state) => state.gauge);
-  const setHungryGauge = useUserStore((state) => state.setGauge);
 
   const setScenes = useUserStore((state) => state.setScenes);
   const renderRoomie = useUserStore((state) => state.renderRoomie);
   const roomieTalkMsg = useUserStore((state) => state.roomieTalkMsg);
+
+  console.log(hungryGauge);
 
   const navigate = useNavigate();
 
@@ -49,7 +50,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchRoomieCurrent();
-  }, [setHungryGauge]);
+  }, []);
 
   // 모델을 중앙으로 이동
   roomieScene.position.set(0, 0, 0);

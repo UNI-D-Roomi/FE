@@ -14,6 +14,8 @@ export const UserService = () => {
     try {
       const response = await API.get<User.RoomieResponse>(`/roomie/home`);
 
+      console.log(response);
+
       if (response.data) {
         setPoint(response.data.points);
         setHungryGauge(response.data.hungerGage);
