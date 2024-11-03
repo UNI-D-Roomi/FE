@@ -37,17 +37,15 @@ const Container = styled.div`
 const StyledSpan = styled.span<{ isMyRank: boolean }>`
   position: absolute;
   color: ${(props) => (props.isMyRank ? `${colors.red}` : `${colors.black}`)};
-  font-size: 15px;
   font-weight: 600;
   line-height: 24px;
   height: 22px;
   letter-spacing: -0.02em;
   text-align: left;
-`;
-
-const Rank = styled(StyledSpan)`
   font-size: ${(props) => (props.isMyRank ? "20px" : "15px")};
 `;
+
+const Rank = styled(StyledSpan)``;
 
 const Name = styled(StyledSpan)`
   flex: 1;

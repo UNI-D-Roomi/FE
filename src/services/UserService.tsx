@@ -7,7 +7,8 @@ export const UserService = () => {
   const setIsRibbon = useUserStore((state) => state.setIsRibbon);
   const setRoomieTalkMsg = useUserStore((state) => state.setRoomieTalkMsg);
   const setPoint = useUserStore((state) => state.setPoint);
-  const setHungryGauge = useUserStore((state) => state.setPoint);
+  const setName = useUserStore((state) => state.setName);
+  const setHungryGauge = useUserStore((state) => state.setGauge);
 
   const fetchRoomieCurrent = async () => {
     try {
@@ -17,6 +18,7 @@ export const UserService = () => {
         setPoint(response.data.points);
         setHungryGauge(response.data.hungerGage);
         setIsRibbon(response.data.isRibbon);
+        setName(response.data.name);
         setRoomieTalkMsg(response.data.roomieTalkMsg);
       }
     } catch (error) {
