@@ -37,8 +37,6 @@ const HomePage = () => {
   const renderRoomie = useUserStore((state) => state.renderRoomie);
   const roomieTalkMsg = useUserStore((state) => state.roomieTalkMsg);
 
-  console.log(hungryGauge);
-
   const navigate = useNavigate();
 
   const { fetchRoomieCurrent } = UserService();

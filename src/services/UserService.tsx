@@ -16,7 +16,6 @@ export const UserService = () => {
     const fetchData = async () => {
       try {
         const response = await API.get<User.RoomieResponse>(`/roomie/home`);
-        console.log(response);
 
         if (response.data) {
           if (callCount === 0) {
