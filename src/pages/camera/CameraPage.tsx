@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { RedButton, Loading } from "@/entities";
 import { UserService } from "@/services/UserService";
-import { dataURLtoFile, PAGE_URL } from "@/configs";
+import { PAGE_URL } from "@/configs";
 
 const CameraPage = () => {
   const location = useLocation();
