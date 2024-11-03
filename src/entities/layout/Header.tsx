@@ -72,7 +72,7 @@ const PointWrapper = styled.div`
   min-width: 80px;
   padding: 0 16px;
   height: 42px;
-  right: 71px;
+  right: 66px;
   border-top-right-radius: 18px;
   border-top-left-radius: 18px;
   background-color: ${colors.white};
