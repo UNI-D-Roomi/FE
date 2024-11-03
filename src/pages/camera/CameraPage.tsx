@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
-import { Camera } from "react-camera-pro";
 import { useState, useRef, useEffect } from "react";
 import CameraIcon from "@mui/icons-material/Camera";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { RedButton, Loading } from "@/entities";
 import { UserService } from "@/services/UserService";
-import { dataURLtoFile, PAGE_URL } from "@/configs";
+import { PAGE_URL } from "@/configs";
 
 const CameraPage = () => {
   const location = useLocation();
@@ -22,22 +21,24 @@ const CameraPage = () => {
     const startCamera = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: { exact: "environment" } },
+          video: { facingMode: { exact: "environment" } }, // 후면 카메라 설정
         });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
       } catch (error) {
         console.error("Error accessing camera: ", error);
+        alert("카메라 접근에 실패했습니다. 권한을 확인해주세요.");
       }
     };
 
     startCamera();
 
+    // 컴포넌트가 언마운트될 때 스트림을 정리하여 카메라를 중지합니다.
     return () => {
       if (videoRef.current && videoRef.current.srcObject) {
-        let stream = videoRef.current.srcObject;
-        let tracks = stream.getTracks();
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
         tracks.forEach((track) => track.stop());
       }
     };
@@ -52,33 +53,38 @@ const CameraPage = () => {
       const context = canvas.getContext("2d");
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      // 캡처한 이미지를 데이터 URL로 변환하여 상태에 저장
       const imageDataUrl = canvas.toDataURL("image/png");
+      if (!imageDataUrl || !imageDataUrl.startsWith("data:image")) {
+        console.error("올바르지 않은 데이터 URL입니다:", imageDataUrl);
+        return;
+      }
       setCapturedImage(imageDataUrl);
 
-      // 데이터 URL을 파일로 변환하고 서버에 전송
       const file = dataURLtoFile(imageDataUrl, "captured-image.png");
       uploadToServer(file);
     }
   };
 
-  // 데이터 URL을 파일로 변환하는 함수
   const dataURLtoFile = (dataUrl, filename) => {
-    const arr = dataUrl.split(",");
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
+    try {
+      const arr = dataUrl.split(",");
+      const mime = arr[0].match(/:(.*?);/)[1];
+      const bstr = atob(arr[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new File([u8arr], filename, { type: mime });
+    } catch (error) {
+      console.error("파일 변환 중 오류 발생:", error);
+      return null;
     }
-    return new File([u8arr], filename, { type: mime });
   };
 
-  // 서버에 파일 업로드하는 함수
   const uploadToServer = async (file) => {
     const formData = new FormData();
-    formData.append("file", dataURLtoFile(file, "file"));
+    formData.append("file", file);
     upload(formData).then((res) => {
       if (location.state.mode === "BEFOREDISH")
         startDish(res).then(() => {
@@ -120,6 +126,7 @@ const CameraPage = () => {
       </Target4>
       <CameraContainer>
         <video ref={videoRef} autoPlay playsInline style={{ width: "100%" }} />
+        <canvas ref={canvasRef} style={{ display: "none" }} />
         <SubmitButton onClick={capturePhoto}>
           <CameraIcon fontSize="large" />
         </SubmitButton>
@@ -135,7 +142,6 @@ const CameraContainer = styled.div`
     top: 0px;
     width: 100%;
     height: 100%;
-
     z-index: -1;
   }
 `;
