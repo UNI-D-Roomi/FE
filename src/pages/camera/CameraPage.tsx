@@ -21,10 +21,6 @@ const CameraPage = () => {
     switchCamera: () => void;
   }>(null);
 
-  useEffect(() => {
-    camera.current.switchCamera();
-  }, []);
-
   const [image, setImage] = useState(null);
 
   useEffect(() => {
