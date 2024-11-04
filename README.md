@@ -10,11 +10,15 @@ Demo Service(It could be closed soon!): https://roomie-service.netlify.app/
 
 ## Front-end Tech Stack
 
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"><br/><img src="https://img.shields.io/badge/zustand-3178C6?style=for-the-badge&logo=zustand&logoColor=white"> <img src="https://img.shields.io/badge/react router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"><br/><img src="https://img.shields.io/badge/react three fiber-000000?style=for-the-badge"> <img src="https://img.shields.io/badge/react three drei-000000?style=for-the-badge"> <br/> <img src="https://img.shields.io/badge/zustand-3178C6?style=for-the-badge&logo=zustand&logoColor=white"> <img src="https://img.shields.io/badge/react router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+
+## Front-end Design Stack
+<img src = "https://img.shields.io/badge/blender-E87D0D?style=for-the-badge&logo=blender&logoColor=white">
 
 ## Core Feature
 
 ### Roomie 3D Modeling
+React three fiber, React three drei 라이브러리를 사용하여 블렌더로 모델링한 캐릭터 루미의 glb 파일을 화면에 렌더링하였습니다. 
 ### Feeding Roomie 
 ### Collect Points & Buy Item
 ### Image API Processing
